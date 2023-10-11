@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "VioletMedia"
 include(":app")
+ 
