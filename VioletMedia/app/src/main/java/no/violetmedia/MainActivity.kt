@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnStoredVideo.setOnClickListener {
-            val intent = Intent(this,StoredVideos::class.java)
+            val intent = Intent(this,StoredVideo::class.java)
             startActivity(intent)
         }
 
