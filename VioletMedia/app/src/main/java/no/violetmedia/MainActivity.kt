@@ -14,19 +14,19 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.btnSettings.setOnClickListener {
-            val intent = Intent(this,Settings::class.java)
+            val intent = Intent(this, Settings::class.java)
             startActivity(intent)
         }
 
         binding.btnNewVideo.setOnClickListener {
-            val intent = Intent(this,NewVideo::class.java)
+            val intent = Intent(this, NewVideo::class.java)
             startActivity(intent)
         }
 
         binding.btnStoredVideo.setOnClickListener {
-            val intent = Intent(this,StoredVideo::class.java)
+            val intent = Intent(this, StoredVideo::class.java)
             startActivity(intent)
         }
-
     }
+
 }

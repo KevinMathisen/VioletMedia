@@ -18,5 +18,14 @@ class Settings : AppCompatActivity() {
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
         }
+
+        binding.cbLight.setOnCheckedChangeListener{ buttonView, isChecked ->
+                if (isChecked) {
+                    // change color code
+                } else {
+                    // change color code, this is the default color
+                }
+            }
+        }
     }
 }

@@ -5,4 +5,7 @@
 
     <color name="background">#1F1F23</color>
     <color name="background2">#391083</color>
+
+    <color name="backgroundLight">#CBCBDD</color>
+    <color name="backgroundLight2">#6F4EAA</color>
 </resources>

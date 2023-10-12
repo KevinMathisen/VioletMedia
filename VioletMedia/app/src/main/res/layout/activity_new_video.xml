@@ -11,7 +11,7 @@
     <Button
         android:id="@+id/btnBack"
         android:layout_width="149dp"
-        android:layout_height="109dp"
+        android:layout_height="110dp"
         android:layout_marginBottom="56dp"
         android:backgroundTint="@color/background2"
         android:text="Back"
@@ -20,13 +20,13 @@
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnConfirm"
-        app:layout_constraintHorizontal_bias="0.676"
+        app:layout_constraintHorizontal_bias="0.707"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnConfirm"
         android:layout_width="149dp"
-        android:layout_height="107dp"
+        android:layout_height="110dp"
         android:layout_marginEnd="48dp"
         android:backgroundTint="@color/background2"
         android:text="Confirm"
@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.287" />
+        app:layout_constraintVertical_bias="0.253" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -57,6 +57,7 @@
             android:ems="10"
             android:hint="Name"
             android:inputType="text"
+            android:textColorHint="@color/background"
             app:layout_constraintBottom_toTopOf="@+id/editTextText2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +71,7 @@
             android:ems="10"
             android:hint=" -- IDK --"
             android:inputType="text"
+            android:textColorHint="@color/background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

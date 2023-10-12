@@ -45,13 +45,13 @@
         android:text="Light Mode"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox"
+        app:layout_constraintEnd_toStartOf="@+id/cbLight"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/cbLight"
         android:layout_width="66dp"
         android:layout_height="50dp"
         android:layout_marginTop="60dp"
