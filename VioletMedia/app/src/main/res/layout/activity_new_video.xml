@@ -10,17 +10,36 @@
 
     <Button
         android:id="@+id/btnBack"
-        android:layout_width="173dp"
-        android:layout_height="63dp"
-        android:layout_marginBottom="116dp"
+        android:layout_width="149dp"
+        android:layout_height="109dp"
+        android:layout_marginBottom="56dp"
+        android:backgroundTint="@color/background2"
         android:text="Back"
         android:textColor="@color/black"
         android:textSize="24sp"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnConfirm"
+        app:layout_constraintHorizontal_bias="0.676"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_width="149dp"
+        android:layout_height="107dp"
+        android:layout_marginEnd="48dp"
+        android:backgroundTint="@color/background2"
+        android:text="Confirm"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_bias="0.287" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="318dp"
         android:layout_height="413dp"
         android:background="@color/background2"
@@ -29,7 +48,7 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.522">
+        app:layout_constraintVertical_bias="0.736">
 
         <EditText
             android:id="@+id/editTextText"
@@ -60,12 +79,13 @@
         android:id="@+id/textView2"
         android:layout_width="246dp"
         android:layout_height="49dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="28dp"
         android:gravity="center"
         android:text="New Video"
         android:textColor="@color/black"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

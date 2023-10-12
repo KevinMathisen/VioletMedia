@@ -25,6 +25,7 @@
         android:id="@+id/btnBack"
         android:layout_width="173dp"
         android:layout_height="63dp"
+        android:backgroundTint="@color/background2"
         android:text="Back"
         android:textColor="@color/black"
         android:textSize="24sp"
