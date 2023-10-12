@@ -4,6 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".NewVideo">
+
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="173dp"
+        android:layout_height="63dp"
+        android:layout_marginBottom="220dp"
+        android:text="Back"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.983" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
