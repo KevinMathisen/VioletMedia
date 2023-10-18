@@ -22,10 +22,9 @@ class Settings : AppCompatActivity() {
         binding.cbLight.setOnCheckedChangeListener{ buttonView, isChecked ->
                 if (isChecked) {
                     // change color code
-                } else {
+                }else {
                     // change color code, this is the default color
                 }
-            }
         }
     }
 }
