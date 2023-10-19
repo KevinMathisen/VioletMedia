@@ -1,7 +1,7 @@
 package no.violetmedia
 
 /**
-data class Video { // ADD CONSTRUCTOR parameter
+data class Video { // ADD CONSTRUCTOR parameter :-)
     var url: String = "",
     var name: String = "",
     var description: String = "",
