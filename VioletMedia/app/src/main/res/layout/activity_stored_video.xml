@@ -35,9 +35,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvVideos"
-        android:layout_width="371dp"
-        android:layout_height="544dp"
-        android:background="@color/background2"
+        android:layout_width="370dp"
+        android:layout_height="528dp"
         app:layout_constraintBottom_toTopOf="@+id/btnBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
