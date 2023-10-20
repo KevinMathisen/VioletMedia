@@ -23,6 +23,7 @@ class VideoAdapter(
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         holder.binding.apply {
             tvTitle.text = videos[position].title
+            tvDesc.text = videos[position].description
         }
         val item = videos[position]
     }
