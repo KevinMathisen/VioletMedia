@@ -1,10 +1,12 @@
 package no.violetmedia
 
+import android.content.Intent
 import android.os.Parcel
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate
 import no.violetmedia.databinding.ItemVideoBinding
@@ -24,6 +26,9 @@ class VideoAdapter(
         holder.binding.apply {
             tvTitle.text = videos[position].title
             tvDesc.text = videos[position].description
+        }
+        holder.binding.imgbutPlay.setOnClickListener {
+            Toast.makeText(holder.itemView.context,"Video is now playing", Toast.LENGTH_SHORT).show()
         }
         val item = videos[position]
     }
