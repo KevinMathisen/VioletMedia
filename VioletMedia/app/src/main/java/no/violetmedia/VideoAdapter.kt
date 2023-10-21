@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate
 import no.violetmedia.databinding.ItemVideoBinding
@@ -29,6 +30,10 @@ class VideoAdapter(
         }
         holder.binding.imgbutPlay.setOnClickListener {
             Toast.makeText(holder.itemView.context,"Video is now playing", Toast.LENGTH_SHORT).show()
+
+            // Start video player
+            val intent = Intent(holder.itemView.context, VideoPlayer::class.java)
+            startActivity(holder.itemView.context, intent, null)
         }
         val item = videos[position]
     }
