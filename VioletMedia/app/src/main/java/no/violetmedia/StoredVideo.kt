@@ -28,8 +28,17 @@ class StoredVideo : AppCompatActivity() {
 
         val videos = VideoDataManager.getVideos(this)
 
+        binding.tvVid.setOnClickListener {
+            val newVideo = VideoData("Coco", null, "abc", false)
+            val currentVideos = VideoDataManager.getVideos(this).toMutableList()
+            currentVideos.add(newVideo)
+            VideoDataManager.saveVideos(this, currentVideos)
+        }
+
+
         binding.btnClear.setOnClickListener {
             videos.clear()
+            VideoDataManager.saveVideos(this, videos)
             val adapter = VideoAdapter(videos)
             binding.rvVideos.adapter = adapter
             binding.rvVideos.layoutManager = LinearLayoutManager(this)

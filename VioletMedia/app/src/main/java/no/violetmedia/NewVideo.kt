@@ -17,13 +17,13 @@ class NewVideo : AppCompatActivity() {
         binding = ActivityNewVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var name2: String = binding.etName.toString().trim()
-        var url2: String = binding.etUrl.toString().trim()
-        //Legg til description
 
         binding.btnConfirm.setOnClickListener {
+            var name2: String = binding.etName.text.toString().trim()
+            var url2: String = binding.etUrl.text.toString().trim()
+            val description2 = binding.etDescription.text.toString().trim()
             if (name2.isNotEmpty() && url2.isNotEmpty()){
-                val newVideo = VideoData(name2, null, url2, false)
+                val newVideo = VideoData(name2, description2, url2, false)
                 val currentVideos = VideoDataManager.getVideos(this).toMutableList()
                 currentVideos.add(newVideo)
                 VideoDataManager.saveVideos(this, currentVideos)
