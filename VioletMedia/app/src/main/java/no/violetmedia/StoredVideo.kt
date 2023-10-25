@@ -16,6 +16,8 @@ class StoredVideo : AppCompatActivity() {
         binding = ActivityStoredVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val videos = VideoDataManager.getVideos(this)
+
         binding.btnBack.setOnClickListener {
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
@@ -25,16 +27,6 @@ class StoredVideo : AppCompatActivity() {
             var filter = binding.etFilter.text.toString()
             filterStuff(filter)
         }
-
-        val videos = VideoDataManager.getVideos(this)
-
-        binding.tvVid.setOnClickListener {
-            val newVideo = VideoData("Coco", null, "abc", false)
-            val currentVideos = VideoDataManager.getVideos(this).toMutableList()
-            currentVideos.add(newVideo)
-            VideoDataManager.saveVideos(this, currentVideos)
-        }
-
 
         binding.btnClear.setOnClickListener {
             videos.clear()

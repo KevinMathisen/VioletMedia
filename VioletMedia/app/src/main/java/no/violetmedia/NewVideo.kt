@@ -19,11 +19,11 @@ class NewVideo : AppCompatActivity() {
 
 
         binding.btnConfirm.setOnClickListener {
-            var name2: String = binding.etName.text.toString().trim()
-            var url2: String = binding.etUrl.text.toString().trim()
-            val description2 = binding.etDescription.text.toString().trim()
-            if (name2.isNotEmpty() && url2.isNotEmpty()){
-                val newVideo = VideoData(name2, description2, url2, false)
+            val name: String = binding.etName.text.toString().trim()
+            val url: String = binding.etUrl.text.toString().trim()
+            val description = binding.etDescription.text.toString().trim()
+            if (name.isNotEmpty() && url.isNotEmpty()){
+                val newVideo = VideoData(name, description, url, false)
                 val currentVideos = VideoDataManager.getVideos(this).toMutableList()
                 currentVideos.add(newVideo)
                 VideoDataManager.saveVideos(this, currentVideos)
