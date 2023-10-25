@@ -7,6 +7,8 @@ import android.widget.Adapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import no.violetmedia.databinding.ActivityStoredVideoBinding
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
 class StoredVideo : AppCompatActivity() {
 
     private lateinit var binding: ActivityStoredVideoBinding
@@ -24,6 +26,7 @@ class StoredVideo : AppCompatActivity() {
         }
 
         binding.btnFilter.setOnClickListener {
+            hideKeyboard()
             var filter = binding.etFilter.text.toString()
             filterStuff(filter)
         }
@@ -67,6 +70,13 @@ class StoredVideo : AppCompatActivity() {
             val adapter = VideoAdapter(filteredList)
             binding.rvVideos.adapter = adapter
             binding.rvVideos.layoutManager = LinearLayoutManager(this)
+        }
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (currentFocus != null) {
+            inputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
         }
     }
 }
