@@ -71,9 +71,7 @@ class StoredVideo : AppCompatActivity() {
         if(filteredList.isEmpty()) {
             Toast.makeText(this, "No videos found matching " +
                     "this filter", Toast.LENGTH_SHORT).show()
-            val adapter = VideoAdapter(videoList)
-            binding.rvVideos.adapter = adapter
-            binding.rvVideos.layoutManager = LinearLayoutManager(this)
+            return
         }
         else{
             val adapter = VideoAdapter(filteredList)
