@@ -23,13 +23,10 @@ class StoredVideo : AppCompatActivity() {
 
         binding.btnFilter.setOnClickListener {
             var filter = binding.etFilter.text.toString()
-            if(filter.isEmpty()) {  // Checking that a number has been entered
-                Toast.makeText(this,"You entered nothing, idiot!!", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                filterStuff(filter)
-            }
+            filterStuff(filter)
         }
+
+
 
 
 
@@ -49,7 +46,6 @@ class StoredVideo : AppCompatActivity() {
 
     }
     private fun filterStuff(query : String?) {
-
         val videoList = mutableListOf(
             VideoList("Interstellar"),
             VideoList("Inception"),
@@ -60,12 +56,12 @@ class StoredVideo : AppCompatActivity() {
         )
 
         val filteredList = mutableListOf<VideoList>()
-
         if (query!=null) {
 
             videoList.forEach { element ->
-                // Access and use 'element' here
-                if (element.title.contains(query)) {
+                val a = element.title.toLowerCase()
+                val b = query.toLowerCase()
+                if (a.contains(b)) {
                     filteredList.add(element)
                 }
             }
@@ -73,7 +69,11 @@ class StoredVideo : AppCompatActivity() {
         }
 
         if(filteredList.isEmpty()) {
-
+            Toast.makeText(this, "No videos found matching " +
+                    "this filter", Toast.LENGTH_SHORT).show()
+            val adapter = VideoAdapter(videoList)
+            binding.rvVideos.adapter = adapter
+            binding.rvVideos.layoutManager = LinearLayoutManager(this)
         }
         else{
             val adapter = VideoAdapter(filteredList)
