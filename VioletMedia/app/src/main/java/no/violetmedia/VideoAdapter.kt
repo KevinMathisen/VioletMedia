@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate
 import no.violetmedia.databinding.ItemVideoBinding
 
 class VideoAdapter(
-    var videos: List<VideoList>
+    var videos: List<VideoData>
 ) : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>(){
     inner class VideoViewHolder(val binding: ItemVideoBinding) : RecyclerView.ViewHolder(binding.root)
 
-    fun setFilteredList(videos: MutableList<VideoList>){
+    fun setFilteredList(videos: MutableList<VideoData>){
         this.videos = videos
         notifyDataSetChanged()
     }
@@ -30,7 +30,7 @@ class VideoAdapter(
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         holder.binding.apply {
-            tvTitle.text = videos[position].title
+            tvTitle.text = videos[position].name
             tvDesc.text = videos[position].description
         }
         holder.binding.imgbutPlay.setOnClickListener {

@@ -15,6 +15,8 @@ class Settings : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnBack.setOnClickListener {
+            val videos = VideoDataManager.getVideos(this)
+            videos.clear()
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
         }

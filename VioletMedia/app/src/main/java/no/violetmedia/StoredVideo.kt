@@ -26,19 +26,14 @@ class StoredVideo : AppCompatActivity() {
             filterStuff(filter)
         }
 
+        val videos = VideoDataManager.getVideos(this)
 
-
-
-
-
-        var videos = mutableListOf(
-            VideoList("Interstellar"),
-            VideoList("Inception"),
-            VideoList("Godfather"),
-            VideoList("Up"),
-            VideoList("Coco"),
-            VideoList("Cars")
-        )
+        binding.btnClear.setOnClickListener {
+            videos.clear()
+            val adapter = VideoAdapter(videos)
+            binding.rvVideos.adapter = adapter
+            binding.rvVideos.layoutManager = LinearLayoutManager(this)
+        }
 
         val adapter = VideoAdapter(videos)
         binding.rvVideos.adapter = adapter
@@ -46,20 +41,14 @@ class StoredVideo : AppCompatActivity() {
 
     }
     private fun filterStuff(query : String?) {
-        val videoList = mutableListOf(
-            VideoList("Interstellar"),
-            VideoList("Inception"),
-            VideoList("Godfather"),
-            VideoList("Up"),
-            VideoList("Coco"),
-            VideoList("Cars")
-        )
 
-        val filteredList = mutableListOf<VideoList>()
+        val videoList = VideoDataManager.getVideos(this)
+
+        val filteredList = mutableListOf<VideoData>()
         if (query!=null) {
 
             videoList.forEach { element ->
-                val a = element.title.toLowerCase()
+                val a = element.name.toLowerCase()
                 val b = query.toLowerCase()
                 if (a.contains(b)) {
                     filteredList.add(element)
