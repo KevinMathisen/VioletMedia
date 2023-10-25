@@ -17,6 +17,11 @@ class VideoAdapter(
 ) : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>(){
     inner class VideoViewHolder(val binding: ItemVideoBinding) : RecyclerView.ViewHolder(binding.root)
 
+    fun setFilteredList(videos: MutableList<VideoList>){
+        this.videos = videos
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemVideoBinding.inflate(layoutInflater, parent, false)
