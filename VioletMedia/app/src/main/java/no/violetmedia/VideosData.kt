@@ -39,5 +39,9 @@ class VideoDataManager {
             return videoList.toMutableList()
         }
 
+        fun doesVideoExist(context: Context, name: String): Boolean {
+            val videos = getVideos(context)
+            return videos.any{it.name == name}
+        }
     }
 }
