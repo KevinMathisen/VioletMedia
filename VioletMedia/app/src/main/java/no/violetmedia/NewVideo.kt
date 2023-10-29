@@ -3,10 +3,14 @@ package no.violetmedia
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import no.violetmedia.databinding.ActivityNewVideoBinding
+import java.io.File
+import java.io.FileOutputStream
 
 class NewVideo : AppCompatActivity() {
     private lateinit var binding: ActivityNewVideoBinding
@@ -59,10 +63,26 @@ class NewVideo : AppCompatActivity() {
         if (requestCode == REQUEST_PICK_VIDEO && resultCode == Activity.RESULT_OK) {
             val selectedVideoUri = data?.data
             if (selectedVideoUri != null) {
-                binding.etUrl.setText(selectedVideoUri.toString())
+                val videoPath = copyVideoToPrivateStorage(selectedVideoUri)
+                binding.etUrl.setText(videoPath)
 
                 Toast.makeText(this, "Video file found!", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun copyVideoToPrivateStorage(uri: Uri): String? {
+        return try {
+            val inputStream = contentResolver.openInputStream(uri)
+            val outputFile = File(filesDir, "video.mp4")
+
+            FileOutputStream(outputFile).use { outputStream ->
+                inputStream?.copyTo(outputStream)
+            }
+
+            outputFile.absolutePath
+        } catch (e: Exception) {
+            null
         }
     }
 
