@@ -59,17 +59,9 @@ class NewVideo : AppCompatActivity() {
         if (requestCode == REQUEST_PICK_VIDEO && resultCode == Activity.RESULT_OK) {
             val selectedVideoUri = data?.data
             if (selectedVideoUri != null) {
-                val videoName = binding.etName.text.toString().trim()
-                val videoDescription = binding.etDescription.text.toString().trim()
+                binding.etUrl.setText(selectedVideoUri.toString())
 
-                val newVideo = VideoData(videoName, videoDescription, selectedVideoUri.toString(), true)
-
-                // Store the video data in SharedPreferences using VideoDataManager
-                val currentVideos = VideoDataManager.getVideos(this).toMutableList()
-                currentVideos.add(newVideo)
-                VideoDataManager.saveVideos(this, currentVideos)
-
-                Toast.makeText(this, "Video added successfully!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Video file found!", Toast.LENGTH_SHORT).show()
             }
         }
     }
