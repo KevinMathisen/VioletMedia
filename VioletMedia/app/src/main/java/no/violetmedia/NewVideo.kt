@@ -1,10 +1,11 @@
 package no.violetmedia
 
+import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import no.violetmedia.databinding.ActivityNewVideoBinding
 
 class NewVideo : AppCompatActivity() {
@@ -17,14 +18,23 @@ class NewVideo : AppCompatActivity() {
         binding = ActivityNewVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.btnConfirm.setOnClickListener {
             newVideo()
         }
 
+        // Initialize the shared preferences and editor
         sf = getSharedPreferences("my_sf", MODE_PRIVATE)
         editor = sf.edit()
 
+        // Set an OnClickListener for the "Select Video" button (formerly btnSelectVideo)
+        binding.btnSelectVideo.setOnClickListener {
+            // Create an intent to open the file picker
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "video/*"
+            startActivityForResult(intent, REQUEST_PICK_VIDEO)
+        }
+
+        // Set an OnClickListener for the "Back" button
         binding.btnBack.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -43,6 +53,26 @@ class NewVideo : AppCompatActivity() {
         binding.etName.setText(name)
     }
 
+    // onActivityResult method to handle the selected video
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_PICK_VIDEO && resultCode == Activity.RESULT_OK) {
+            val selectedVideoUri = data?.data
+            if (selectedVideoUri != null) {
+                val videoName = binding.etName.text.toString().trim()
+                val videoDescription = binding.etDescription.text.toString().trim()
+
+                val newVideo = VideoData(videoName, videoDescription, selectedVideoUri.toString(), true)
+
+                // Store the video data in SharedPreferences using VideoDataManager
+                val currentVideos = VideoDataManager.getVideos(this).toMutableList()
+                currentVideos.add(newVideo)
+                VideoDataManager.saveVideos(this, currentVideos)
+
+                Toast.makeText(this, "Video added successfully!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     private fun newVideo() {
         val name: String = binding.etName.text.toString().trim()
@@ -50,7 +80,7 @@ class NewVideo : AppCompatActivity() {
         val description = binding.etDescription.text.toString().trim()
 
         if (name.isEmpty() || url.isEmpty()) {
-            Toast.makeText(this, "Can't add video, have to specify name and url", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Can't add video, have to specify name and URL", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -69,5 +99,9 @@ class NewVideo : AppCompatActivity() {
         binding.etName.text.clear()
         binding.etUrl.text.clear()
         binding.etDescription.text.clear()
+    }
+
+    companion object {
+        private const val REQUEST_PICK_VIDEO = 1
     }
 }
