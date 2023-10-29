@@ -13,3 +13,5 @@
 /VioletMedia/.externalNativeBuild
 /VioletMedia/.cxx
 /VioletMedia/local.properties
+/video-server/videos
+/video-server/node_modules
