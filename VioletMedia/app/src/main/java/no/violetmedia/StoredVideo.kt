@@ -28,7 +28,7 @@ class StoredVideo : AppCompatActivity() {
         binding.btnFilter.setOnClickListener {
             hideKeyboard()
             var filter = binding.etFilter.text.toString()
-            filterStuff(filter)
+            filterVideos(filter)
         }
 
         binding.btnClear.setOnClickListener {
@@ -44,7 +44,7 @@ class StoredVideo : AppCompatActivity() {
         binding.rvVideos.layoutManager = LinearLayoutManager(this)
 
     }
-    private fun filterStuff(query : String?) {
+    private fun filterVideos(query : String?) {
 
         val videoList = VideoDataManager.getVideos(this)
 
