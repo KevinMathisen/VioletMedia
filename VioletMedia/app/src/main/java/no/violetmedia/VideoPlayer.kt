@@ -23,13 +23,16 @@ class VideoPlayer : AppCompatActivity() {
         binding = ActivityVideoPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val source = intent.getStringExtra("source") ?: ""
+
         if (savedInstanceState != null) {
             playbackPos = savedInstanceState.getLong("playbackPos")
             currentWindow = savedInstanceState.getInt("currentWindow")
             playWhenReady = savedInstanceState.getBoolean("playWhenReady")
         }
 
-        initializeExoPlayer("https://storage.googleapis.com/wvmedia/clear/h264/tears/tears.mpd")
+        initializeExoPlayer(source)
+        //initializeExoPlayer("https://storage.googleapis.com/wvmedia/clear/h264/tears/tears.mpd")
     }
 
     private fun initializeExoPlayer(url: String) {
