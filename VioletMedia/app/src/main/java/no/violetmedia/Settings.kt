@@ -14,6 +14,10 @@ class Settings : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.tvAbout1.text = getString(R.string.names)
+
+        binding.tvAbout2.text = getString(R.string.about)
+
         binding.btnBack.setOnClickListener {
             val videos = VideoDataManager.getVideos(this)
             videos.clear()
@@ -21,12 +25,7 @@ class Settings : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.cbLight.setOnCheckedChangeListener{ buttonView, isChecked ->
-                if (isChecked) {
-                    // change color code
-                }else {
-                    // change color code, this is the default color
-                }
-        }
+
+
     }
 }
