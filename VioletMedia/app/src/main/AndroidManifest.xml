@@ -13,15 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VioletMedia"
-        tools:targetApi="31"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".EditVideo"
+            android:exported="false" />
         <activity
             android:name=".VideoPlayer"
             android:exported="false" />
         <activity
             android:name=".StoredVideo"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".NewVideo"
             android:exported="false" />

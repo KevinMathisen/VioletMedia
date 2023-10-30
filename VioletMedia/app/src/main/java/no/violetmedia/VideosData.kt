@@ -4,9 +4,10 @@ import android.app.Application
 import android.content.Context
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
+import java.io.Serializable
 
 
-data class VideoData(val name: String, var description: String?, var source: String, var local: Boolean)
+data class VideoData(var name: String, var description: String?, var source: String, var local: Boolean) : Serializable
 
 class VideoDataManager {
     companion object {
