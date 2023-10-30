@@ -32,8 +32,7 @@ class EditVideo : AppCompatActivity() {
             }
         }
 
-
-        binding.btnEditSave.setOnClickListener {
+        binding.btnEditCancel.setOnClickListener {
             val intent = Intent(this,StoredVideo::class.java)
             startActivity(intent)
         }

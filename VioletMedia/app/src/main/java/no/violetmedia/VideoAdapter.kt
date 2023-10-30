@@ -3,6 +3,7 @@ package no.violetmedia
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
@@ -38,7 +39,7 @@ class VideoAdapter(
         }
         val item = videos[position]
 
-        holder.binding.tvTitle.setOnClickListener{
+        holder.binding.myConstraintLayout.setOnClickListener {
             val intent = Intent(context, EditVideo::class.java)
             intent.putExtra("ITEM", item)
             context.startActivity(intent)

@@ -51,11 +51,11 @@ class StoredVideo : AppCompatActivity() {
         val filteredList = mutableListOf<VideoData>()
         if (query!=null) {
 
-            videoList.forEach { element ->
-                val a = element.name.toLowerCase()
-                val b = query.toLowerCase()
-                if (a.contains(b)) {
-                    filteredList.add(element)
+            videoList.forEach { item ->
+                val video = item.name.lowercase()
+                val keyword = query.lowercase()
+                if (video.contains(keyword)) {
+                    filteredList.add(item)
                 }
             }
 

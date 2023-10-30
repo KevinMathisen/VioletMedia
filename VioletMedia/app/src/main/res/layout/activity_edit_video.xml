@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvEdit">
 
         <EditText
-            android:id="@+id/etDescriptionEdit"
+            android:id="@+id/etUrlEdit"
             android:layout_width="239dp"
             android:layout_height="67dp"
             android:layout_marginTop="136dp"
@@ -60,7 +60,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/etUrlEdit"
+            android:id="@+id/etDescriptionEdit"
             android:layout_width="238dp"
             android:layout_height="67dp"
             android:ems="10"
