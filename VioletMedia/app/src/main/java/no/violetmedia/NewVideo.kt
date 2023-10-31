@@ -101,7 +101,7 @@ class NewVideo : AppCompatActivity() {
             return
         }
 
-        val newVideo = VideoData(name, description, url, false)
+        val newVideo = VideoData(name, description, url, null)
         val currentVideos = VideoDataManager.getVideos(this).toMutableList()
         currentVideos.add(newVideo)
         VideoDataManager.saveVideos(this, currentVideos)
