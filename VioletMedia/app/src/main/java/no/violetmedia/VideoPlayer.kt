@@ -4,6 +4,11 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowInsetsController
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.media3.common.C
 import androidx.media3.exoplayer.ExoPlayer
 import no.violetmedia.databinding.ActivityVideoPlayerBinding
@@ -35,6 +40,8 @@ class VideoPlayer : AppCompatActivity() {
 
         initializeExoPlayer(source, subtitle)
         //initializeExoPlayer("https://storage.googleapis.com/wvmedia/clear/h264/tears/tears.mpd")
+
+        enterFullScreen()
     }
 
     private fun initializeExoPlayer(url: String, subtitle: String?) {
@@ -75,10 +82,26 @@ class VideoPlayer : AppCompatActivity() {
         releasePlayer()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        exitFullScreen()
+    }
+
     private fun releasePlayer() {
         playbackPos = player.currentPosition
         currentWindow = player.currentMediaItemIndex
         playWhenReady = player.playWhenReady
         player.release()
     }
+
+    private fun enterFullScreen() {
+        // Hide the status bar and navigation bar
+        WindowCompat.getInsetsController(window, window.decorView).hide(WindowInsetsCompat.Type.systemBars())
+    }
+
+    private fun exitFullScreen() {
+        // Show the status bar and navigation bar
+        WindowCompat.getInsetsController(window, window.decorView).show(WindowInsetsCompat.Type.systemBars())
+    }
+
 }
