@@ -6,7 +6,7 @@ import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 
 
-data class VideoData(val name: String, var description: String?, var source: String, var local: Boolean)
+data class VideoData(val name: String, var description: String?, var source: String, var subtitle: String?)
 
 class VideoDataManager {
     companion object {

@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import androidx.media3.common.C
 import androidx.media3.exoplayer.ExoPlayer
 import no.violetmedia.databinding.ActivityVideoPlayerBinding
 import androidx.media3.common.MediaItem
@@ -24,6 +25,7 @@ class VideoPlayer : AppCompatActivity() {
         setContentView(binding.root)
 
         val source = intent.getStringExtra("source") ?: ""
+        val subtitle = intent.getStringExtra("subtitle")
 
         if (savedInstanceState != null) {
             playbackPos = savedInstanceState.getLong("playbackPos")
@@ -31,17 +33,28 @@ class VideoPlayer : AppCompatActivity() {
             playWhenReady = savedInstanceState.getBoolean("playWhenReady")
         }
 
-        initializeExoPlayer(source)
+        initializeExoPlayer(source, subtitle)
         //initializeExoPlayer("https://storage.googleapis.com/wvmedia/clear/h264/tears/tears.mpd")
     }
 
-    private fun initializeExoPlayer(url: String) {
+    private fun initializeExoPlayer(url: String, subtitle: String?) {
         player = ExoPlayer.Builder(this).build()
         val playerView = binding.playerView
         playerView.player = player
 
-        val uri = Uri.parse(url)
-        val mediaItem = MediaItem.fromUri(uri)
+        val videoUri = Uri.parse(url)
+
+        val mediaItem = if (subtitle == null) {
+            MediaItem.fromUri(videoUri)
+        } else {
+            val subtitleUri = Uri.parse(subtitle)
+            val subtitle = MediaItem.SubtitleConfiguration.Builder(subtitleUri)
+                .setMimeType("text/vtt")
+                .setSelectionFlags(C.SELECTION_FLAG_DEFAULT)
+                .build()
+            MediaItem.Builder().setUri(videoUri).setSubtitleConfigurations(listOf(subtitle)).build()
+        }
+
         player.setMediaItem(mediaItem)
 
         player.prepare()
