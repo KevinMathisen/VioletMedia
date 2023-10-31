@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">VioletMedia</string>
+    <string name="names">Kevin Nikolai Mathisen\nCarl Petter Mørch-Reiersen\nMartin Solevåg Glærum</string>
+    <string name="about">This app is very cool, I love it :-)  :-) </string>
 </resources>

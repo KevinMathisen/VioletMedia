@@ -34,12 +34,12 @@ class StoredVideo : AppCompatActivity() {
         binding.btnClear.setOnClickListener {
             videos.clear()
             VideoDataManager.saveVideos(this, videos)
-            val adapter = VideoAdapter(videos)
+            val adapter = VideoAdapter(videos, this)
             binding.rvVideos.adapter = adapter
             binding.rvVideos.layoutManager = LinearLayoutManager(this)
         }
 
-        val adapter = VideoAdapter(videos)
+        val adapter = VideoAdapter(videos, this)
         binding.rvVideos.adapter = adapter
         binding.rvVideos.layoutManager = LinearLayoutManager(this)
 
@@ -51,11 +51,11 @@ class StoredVideo : AppCompatActivity() {
         val filteredList = mutableListOf<VideoData>()
         if (query!=null) {
 
-            videoList.forEach { element ->
-                val a = element.name.toLowerCase()
-                val b = query.toLowerCase()
-                if (a.contains(b)) {
-                    filteredList.add(element)
+            videoList.forEach { item ->
+                val video = item.name.lowercase()
+                val keyword = query.lowercase()
+                if (video.contains(keyword)) {
+                    filteredList.add(item)
                 }
             }
 
@@ -67,7 +67,7 @@ class StoredVideo : AppCompatActivity() {
             return
         }
         else{
-            val adapter = VideoAdapter(filteredList)
+            val adapter = VideoAdapter(filteredList, this)
             binding.rvVideos.adapter = adapter
             binding.rvVideos.layoutManager = LinearLayoutManager(this)
         }

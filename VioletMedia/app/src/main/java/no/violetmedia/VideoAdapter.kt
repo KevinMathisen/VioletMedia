@@ -1,19 +1,16 @@
 package no.violetmedia
 
+import android.content.Context
 import android.content.Intent
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate
 import no.violetmedia.databinding.ItemVideoBinding
-
 class VideoAdapter(
-    var videos: List<VideoData>
+    var videos: List<VideoData>, val context: Context
 ) : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>(){
     inner class VideoViewHolder(val binding: ItemVideoBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -38,10 +35,15 @@ class VideoAdapter(
 
             // Start video player
             val intent = Intent(holder.itemView.context, VideoPlayer::class.java)
-            intent.putExtra("source", videos[position].source)
             startActivity(holder.itemView.context, intent, null)
         }
         val item = videos[position]
+
+        holder.binding.myConstraintLayout.setOnClickListener {
+            val intent = Intent(context, EditVideo::class.java)
+            intent.putExtra("ITEM", item)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
