@@ -90,6 +90,7 @@ class NewVideo : AppCompatActivity() {
         val name: String = binding.etName.text.toString().trim()
         val url: String = binding.etUrl.text.toString().trim()
         val description = binding.etDescription.text.toString().trim()
+        val checkBox = binding.checkBox
 
         if (name.isEmpty() || url.isEmpty()) {
             Toast.makeText(this, "Can't add video, have to specify name and URL", Toast.LENGTH_SHORT).show()

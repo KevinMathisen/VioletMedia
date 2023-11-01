@@ -106,6 +106,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.286" />
 
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Subtitles"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="236dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
