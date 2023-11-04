@@ -42,7 +42,7 @@ class VideoAdapter(
 
         holder.binding.myConstraintLayout.setOnClickListener {
             val intent = Intent(context, EditVideo::class.java)
-            intent.putExtra("ITEM", item)
+            intent.putExtra("source", item.name)
             context.startActivity(intent)
         }
     }

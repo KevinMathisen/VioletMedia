@@ -33,7 +33,7 @@ class EditVideo : AppCompatActivity() {
         if (subSource != null) {
             binding.etSubUrlEdit.setText(subSource)
         } else {
-            binding.etSubUrlEdit.setHint("Subtitle Url not set")
+            binding.etSubUrlEdit.hint = "Subtitle Url not set"
         }
 
         binding.btnEditSave.setOnClickListener {

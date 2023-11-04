@@ -40,7 +40,7 @@ class StoredVideo : AppCompatActivity() {
                 textToSpeech.language = Locale.US // You can change this as needed
             }
         }
-        val videos = VideoDataManager.getVideos(this)
+        val videos = VideoDataManager.getVideos(applicationContext)
 
 
         requestMicrophonePermission()
@@ -66,8 +66,7 @@ class StoredVideo : AppCompatActivity() {
         })
 
         binding.btnBack.setOnClickListener {
-            val intent = Intent(this,MainActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
         binding.btnFilter.setOnClickListener {
@@ -78,7 +77,7 @@ class StoredVideo : AppCompatActivity() {
 
         binding.btnClear.setOnClickListener {
             videos.clear()
-            VideoDataManager.saveVideos(this, videos)
+            VideoDataManager.saveVideos(applicationContext, videos)
             val adapter = VideoAdapter(videos, this)
             binding.rvVideos.adapter = adapter
             binding.rvVideos.layoutManager = LinearLayoutManager(this)
@@ -105,6 +104,9 @@ class StoredVideo : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        val videos = VideoDataManager.getVideos(applicationContext)
+        binding.rvVideos.adapter = VideoAdapter(videos, this)
 
         if (requestCode == REQUEST_SPEECH_RECOGNITION && resultCode == RESULT_OK) {
             val results = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
