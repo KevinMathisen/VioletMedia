@@ -3,6 +3,7 @@ package no.violetmedia
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import no.violetmedia.databinding.ActivityEditVideoBinding
 
 
@@ -13,28 +14,45 @@ class EditVideo : AppCompatActivity() {
         binding = ActivityEditVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val item = intent.getSerializableExtra("ITEM") as? VideoData
 
-        binding.tvEdit.text = "Edit ${item?.name}"
+        val orgName = intent.getStringExtra("source") ?: "N/A"
 
-        binding.etNameEdit.setText(item?.name)
-        binding.etDescriptionEdit.setText(item?.description)
-        binding.etUrlEdit.setText(item?.source)
+        var videos = VideoDataManager.getVideos(this)
+        val video = videos.find { it.name == orgName }
 
-        binding.btnEditSave.setOnClickListener {
-            item?.let { // Ensure item is not null
-                it.name = binding.etNameEdit.text.toString()
-                it.description = binding.etDescriptionEdit.text.toString()
-                it.source = binding.etUrlEdit.text.toString()
+        val source = video?.source ?: "N/A"
+        val description = video?.description ?: "N/A"
+        val subSource = video?.subtitle
 
-                val intent = Intent(this, StoredVideo::class.java)
-                startActivity(intent)
-            }
+        binding.tvEdit.text = "Edit ${orgName}"
+
+        binding.etNameEdit.setText(orgName)
+        binding.etDescriptionEdit.setText(description)
+        binding.etUrlEdit.setText(source)
+
+        if (subSource != null) {
+            binding.etSubUrlEdit.setText(subSource)
+        } else {
+            binding.etSubUrlEdit.setHint("Subtitle Url not set")
         }
 
-        binding.btnEditCancel.setOnClickListener {
-            val intent = Intent(this,StoredVideo::class.java)
-            startActivity(intent)
+        binding.btnEditSave.setOnClickListener {
+            val newName = binding.etNameEdit.text.toString()
+            val newDesc = binding.etDescriptionEdit.text.toString()
+            val newSource = binding.etUrlEdit.text.toString()
+            val subtitleText = binding.etSubUrlEdit.text.toString()
+            val subtitle = if (subtitleText != "") subtitleText else null
+
+            val newVideo = VideoData(newName, newDesc, newSource, subtitle)
+            videos = videos.map { if (it.name == orgName) newVideo else it }.toMutableList()
+
+            VideoDataManager.saveVideos(applicationContext, videos)
+
+            Toast.makeText(this, "Video saved!", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.btnEditBack.setOnClickListener {
+            finish()
         }
 
     }

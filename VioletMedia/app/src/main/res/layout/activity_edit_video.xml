@@ -10,22 +10,21 @@
 
     <TextView
         android:id="@+id/tvEdit"
-        android:layout_width="272dp"
-        android:layout_height="99dp"
-        android:layout_marginTop="36dp"
+        android:layout_width="294dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="48sp"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="349dp"
-        android:layout_height="370dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="344dp"
+        android:layout_height="464dp"
+        android:layout_marginTop="32dp"
         android:background="@color/background2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,44 +34,51 @@
             android:id="@+id/etUrlEdit"
             android:layout_width="239dp"
             android:layout_height="67dp"
-            android:layout_marginTop="136dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
             android:inputType="text"
             android:textColorHint="@color/background"
             android:textSize="22sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/etNameEdit"
+            app:layout_constraintTop_toBottomOf="@+id/etNameEdit" />
 
         <EditText
             android:id="@+id/etNameEdit"
             android:layout_width="237dp"
             android:layout_height="65dp"
-            android:layout_marginBottom="276dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
             android:inputType="text"
             android:textColorHint="@color/background"
             android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.508"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/etDescriptionEdit"
             android:layout_width="238dp"
             android:layout_height="67dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
             android:inputType="text"
             android:textColorHint="@color/background"
             android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.833" />
+            app:layout_constraintStart_toStartOf="@+id/etUrlEdit"
+            app:layout_constraintTop_toBottomOf="@+id/etUrlEdit" />
+
+        <EditText
+            android:id="@+id/etSubUrlEdit"
+            android:layout_width="238dp"
+            android:layout_height="67dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:inputType="text"
+            android:textColorHint="@color/background"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="@+id/etDescriptionEdit"
+            app:layout_constraintTop_toBottomOf="@+id/etDescriptionEdit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -80,30 +86,28 @@
         android:id="@+id/btnEditSave"
         android:layout_width="162dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="104dp"
         android:backgroundTint="@color/background2"
         android:text="Save"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.867"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/btnEditBack"
+        app:layout_constraintTop_toTopOf="@+id/btnEditBack" />
 
     <Button
-        android:id="@+id/btnEditCancel"
+        android:id="@+id/btnEditBack"
         android:layout_width="162dp"
         android:layout_height="80dp"
         android:layout_marginTop="32dp"
         android:backgroundTint="@color/background2"
-        android:text="Cancel"
+        android:text="Back"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnEditSave"
-        app:layout_constraintHorizontal_bias="0.629"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
         app:layout_constraintVertical_bias="0.0" />
