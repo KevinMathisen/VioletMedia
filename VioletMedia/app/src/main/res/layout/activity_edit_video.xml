@@ -12,21 +12,23 @@
         android:id="@+id/tvEdit"
         android:layout_width="294dp"
         android:layout_height="66dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="344dp"
-        android:layout_height="464dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="350dp"
+        android:layout_height="428dp"
+        android:layout_marginTop="16dp"
         android:background="@color/background2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvEdit">
 
@@ -96,10 +98,27 @@
         app:layout_constraintTop_toTopOf="@+id/btnEditBack" />
 
     <Button
+        android:id="@+id/btnEditDelete"
+        android:layout_width="162dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#831031"
+        android:text="Delete"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEditBack"
+        app:layout_constraintVertical_bias="0.448" />
+
+    <Button
         android:id="@+id/btnEditBack"
         android:layout_width="162dp"
         android:layout_height="80dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/background2"
         android:text="Back"
         android:textColor="@color/black"
@@ -107,7 +126,7 @@
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintHorizontal_bias="0.112"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
         app:layout_constraintVertical_bias="0.0" />

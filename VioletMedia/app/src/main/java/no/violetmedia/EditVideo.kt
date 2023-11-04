@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import no.violetmedia.databinding.ActivityEditVideoBinding
+import no.violetmedia.databinding.ConfirmDeleteDialogBinding
 
 
 class EditVideo : AppCompatActivity() {
@@ -17,7 +19,7 @@ class EditVideo : AppCompatActivity() {
 
         val orgName = intent.getStringExtra("source") ?: "N/A"
 
-        var videos = VideoDataManager.getVideos(this)
+        var videos = VideoDataManager.getVideos(applicationContext)
         val video = videos.find { it.name == orgName }
 
         val source = video?.source ?: "N/A"
@@ -51,9 +53,34 @@ class EditVideo : AppCompatActivity() {
             Toast.makeText(this, "Video saved!", Toast.LENGTH_SHORT).show()
         }
 
+        binding.btnEditDelete.setOnClickListener {
+            askForDeleteConfirmation(orgName)
+        }
+
         binding.btnEditBack.setOnClickListener {
             finish()
         }
 
+    }
+
+    fun askForDeleteConfirmation(videoName: String) {
+        val binding = ConfirmDeleteDialogBinding.inflate(layoutInflater)
+
+        val confirmView = AlertDialog.Builder(this).setView(binding.root).create()
+
+        binding.cancelButton.setOnClickListener {
+            confirmView.dismiss()
+        }
+
+        binding.confirmButton.setOnClickListener {
+            var videos = VideoDataManager.getVideos(applicationContext)
+            videos = videos.filterNot { it.name == videoName }.toMutableList()
+            VideoDataManager.saveVideos(applicationContext, videos)
+
+            confirmView.dismiss()
+            finish()
+        }
+
+        confirmView.show()
     }
 }
