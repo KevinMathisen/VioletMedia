@@ -86,6 +86,18 @@
             app:layout_constraintStart_toStartOf="@+id/etUrl"
             app:layout_constraintTop_toBottomOf="@+id/etUrl" />
 
+        <EditText
+            android:id="@+id/etSubtitleUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="SubtitleUrl (Optional)"
+            android:inputType="text"
+            android:textColorHint="@color/background"
+            app:layout_constraintStart_toStartOf="@+id/etDescription"
+            app:layout_constraintTop_toBottomOf="@+id/etDescription" />
+
         <Button
             android:id="@+id/btnSelectVideo"
             android:layout_width="68dp"
@@ -93,15 +105,6 @@
             android:text="..."
             app:layout_constraintStart_toEndOf="@+id/etUrl"
             app:layout_constraintTop_toTopOf="@+id/etUrl" />
-
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/Subtitles"
-            app:layout_constraintStart_toStartOf="@+id/etDescription"
-            app:layout_constraintTop_toBottomOf="@+id/etDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

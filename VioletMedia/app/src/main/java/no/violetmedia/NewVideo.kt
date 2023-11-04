@@ -40,8 +40,7 @@ class NewVideo : AppCompatActivity() {
 
         // Set an OnClickListener for the "Back" button
         binding.btnBack.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 
@@ -90,7 +89,7 @@ class NewVideo : AppCompatActivity() {
         val name: String = binding.etName.text.toString().trim()
         val url: String = binding.etUrl.text.toString().trim()
         val description = binding.etDescription.text.toString().trim()
-        val checkBox = binding.checkBox
+        val subtitleUrl = binding.etSubtitleUrl.text.toString().trim()
 
         if (name.isEmpty() || url.isEmpty()) {
             Toast.makeText(this, "Can't add video, have to specify name and URL", Toast.LENGTH_SHORT).show()
@@ -102,10 +101,12 @@ class NewVideo : AppCompatActivity() {
             return
         }
 
-        val newVideo = VideoData(name, description, url, null)
+       val subtitle = if (subtitleUrl != "") subtitleUrl else null
+
+        val newVideo = VideoData(name, description, url, subtitle)
         val currentVideos = VideoDataManager.getVideos(this).toMutableList()
         currentVideos.add(newVideo)
-        VideoDataManager.saveVideos(this, currentVideos)
+        VideoDataManager.saveVideos(applicationContext, currentVideos)
 
         Toast.makeText(this, "Video added successfully!", Toast.LENGTH_SHORT).show()
 
