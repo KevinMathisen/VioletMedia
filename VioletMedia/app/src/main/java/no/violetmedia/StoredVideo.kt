@@ -125,9 +125,10 @@ class StoredVideo : AppCompatActivity() {
         if (query!=null) {
 
             videoList.forEach { item ->
-                val video = item.name.lowercase()
+                val name = item.name.lowercase()
+                val description = item.description?.lowercase() ?: ""
                 val keyword = query.lowercase()
-                if (video.contains(keyword)) {
+                if (name.contains(keyword) || description.contains(keyword))  {
                     filteredList.add(item)
                 }
             }
