@@ -21,15 +21,17 @@
         android:gravity="center_horizontal">
 
         <Button
-            android:id="@+id/confirm_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Confirm" />
-
-        <Button
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel" />
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/delete"
+            android:text="Confirm" />
+
         </LinearLayout>
 </LinearLayout>
