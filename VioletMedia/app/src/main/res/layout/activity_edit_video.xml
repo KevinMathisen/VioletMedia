@@ -88,7 +88,7 @@
         android:id="@+id/btnEditSave"
         android:layout_width="162dp"
         android:layout_height="80dp"
-        android:backgroundTint="@color/background2"
+        android:backgroundTint="@color/backgroundLight2"
         android:text="Save"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -102,17 +102,15 @@
         android:layout_width="162dp"
         android:layout_height="80dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="#831031"
+        android:backgroundTint="@color/delete"
         android:text="Delete"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnEditBack"
-        app:layout_constraintVertical_bias="0.448" />
+        app:layout_constraintTop_toBottomOf="@+id/btnEditBack" />
 
     <Button
         android:id="@+id/btnEditBack"

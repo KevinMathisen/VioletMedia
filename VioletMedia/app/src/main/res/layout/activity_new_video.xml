@@ -10,32 +10,35 @@
 
     <Button
         android:id="@+id/btnBack"
-        android:layout_width="149dp"
-        android:layout_height="110dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:height="90dp"
         android:backgroundTint="@color/background2"
         android:text="Back"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.152"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.503" />
+        app:layout_constraintStart_toStartOf="@+id/btnConfirm"
+        app:layout_constraintTop_toBottomOf="@+id/btnConfirm"
+        app:layout_constraintVertical_bias="0.05" />
 
     <Button
         android:id="@+id/btnConfirm"
-        android:layout_width="149dp"
-        android:layout_height="110dp"
-        android:backgroundTint="@color/background2"
+        android:layout_width="250dp"
+        android:layout_height="90dp"
+        android:backgroundTint="@color/backgroundLight2"
         android:text="Confirm"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnBack"
-        app:layout_constraintTop_toTopOf="@+id/btnBack" />
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_bias="0.131" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
