@@ -1,9 +1,11 @@
 package no.violetmedia
 
 import android.Manifest
+import android.content.BroadcastReceiver
 import android.speech.RecognizerIntent
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -14,6 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import no.violetmedia.databinding.ActivityStoredVideoBinding
 import java.util.Locale
@@ -69,19 +72,22 @@ class StoredVideo : AppCompatActivity() {
             finish()
         }
 
-        binding.btnFilter.setOnClickListener {
-            hideKeyboard()
+        binding.etFilter.doOnTextChanged { _, _, _, _ ->
             val filter = binding.etFilter.text.toString()
             filterVideos(filter)
         }
 
-        binding.btnClear.setOnClickListener {
-            videos.clear()
-            VideoDataManager.saveVideos(applicationContext, videos)
-            val adapter = VideoAdapter(videos, this)
-            binding.rvVideos.adapter = adapter
-            binding.rvVideos.layoutManager = LinearLayoutManager(this)
+        val receiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                val videos = VideoDataManager.getVideos(applicationContext)
+                val adapter = VideoAdapter(videos, binding.root.context)
+                binding.rvVideos.adapter = adapter
+                binding.etFilter.setText("")
+            }
         }
+        val filter = IntentFilter("BroadcastReceiver")
+        registerReceiver(receiver, filter, RECEIVER_EXPORTED)
+
 
         val adapter = VideoAdapter(videos, this)
         binding.rvVideos.adapter = adapter
@@ -113,6 +119,7 @@ class StoredVideo : AppCompatActivity() {
             if (!results.isNullOrEmpty()) {
                 spokenText = results[0]
                 filter = spokenText
+                binding.etFilter.setText(filter)
                 filterVideos(filter)
             }
         }
@@ -135,16 +142,9 @@ class StoredVideo : AppCompatActivity() {
 
         }
 
-        if(filteredList.isEmpty()) {
-            Toast.makeText(this, "No videos found matching " +
-                    "this filter", Toast.LENGTH_SHORT).show()
-            return
-        }
-        else{
-            val adapter = VideoAdapter(filteredList, this)
-            binding.rvVideos.adapter = adapter
-            binding.rvVideos.layoutManager = LinearLayoutManager(this)
-        }
+        val adapter = VideoAdapter(filteredList, this)
+        binding.rvVideos.adapter = adapter
+        binding.rvVideos.layoutManager = LinearLayoutManager(this)
     }
 
     private fun hideKeyboard() {

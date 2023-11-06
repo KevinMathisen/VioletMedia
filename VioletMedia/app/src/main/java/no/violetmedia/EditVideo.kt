@@ -58,6 +58,8 @@ class EditVideo : AppCompatActivity() {
         }
 
         binding.btnEditBack.setOnClickListener {
+            val intent = Intent("BroadcastReceiver")
+            sendBroadcast(intent)
             finish()
         }
 
@@ -78,6 +80,8 @@ class EditVideo : AppCompatActivity() {
             VideoDataManager.saveVideos(applicationContext, videos)
 
             confirmView.dismiss()
+            val intent = Intent("BroadcastReceiver")
+            sendBroadcast(intent)
             finish()
         }
 
