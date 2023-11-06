@@ -40,7 +40,7 @@ class VideoAdapter(
         }
         val item = videos[position]
 
-        holder.binding.myConstraintLayout.setOnClickListener {
+        holder.binding.imgbutEdit2.setOnClickListener {
             val intent = Intent(context, EditVideo::class.java)
             intent.putExtra("source", item.name)
             context.startActivity(intent)
