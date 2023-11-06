@@ -8,4 +8,6 @@
 
     <color name="backgroundLight">#CBCBDD</color>
     <color name="backgroundLight2">#6F4EAA</color>
+    <color name="applybutton">#1B5E20</color>
+    <color name="delete">#831031</color>
 </resources>

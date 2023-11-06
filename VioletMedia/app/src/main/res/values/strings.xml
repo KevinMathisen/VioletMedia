@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">VioletMedia</string>
     <string name="names">Kevin Nikolai Mathisen\nCarl Petter Mørch-Reiersen\nMartin Solevåg Glærum</string>
-    <string name="about">This app is very cool, I love it :-)  :-) </string>
+    <string name="about">VioletMedia is a videoplayer application.\n
+\n
+        To add a video to pay there are two ways.\n
+\n
+    The first is by choosing a local videofile, which can be done by clicking the "\.\.\." button in newVideo.\n
+        \n
+    The second way is by streaming it. This can be achieved by pasting the url of the videofile into the url field in newvideo.\n
+        If the videoplayer only displays a black screen there is a problem with the url.\n
+\n
+    If you want to view subtitles with your video, you can enter the url of a subtitle file in the subtitle field. The subtitle file has to have the .vtt format.\n
+
+    </string>
     <string name="Subtitles">Subtitles</string>
 </resources>
