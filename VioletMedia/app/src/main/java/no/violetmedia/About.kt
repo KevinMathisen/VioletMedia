@@ -3,15 +3,15 @@ package no.violetmedia
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import no.violetmedia.databinding.ActivitySettingsBinding
+import no.violetmedia.databinding.ActivityAboutBinding
 
-class Settings : AppCompatActivity() {
-    private lateinit var binding: ActivitySettingsBinding
+class About : AppCompatActivity() {
+    private lateinit var binding: ActivityAboutBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.tvAbout1.text = getString(R.string.names)
@@ -19,10 +19,7 @@ class Settings : AppCompatActivity() {
         binding.tvAbout2.text = getString(R.string.about)
 
         binding.btnBack.setOnClickListener {
-            val videos = VideoDataManager.getVideos(this)
-            videos.clear()
-            val intent = Intent(this,MainActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
 

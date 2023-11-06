@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="#F3464649"
     tools:context=".About">
 
     <TextView
@@ -25,21 +25,23 @@
         android:id="@+id/btnBack"
         android:layout_width="173dp"
         android:layout_height="63dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/background2"
         android:text="Back"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.934" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvAbout2"
-        android:layout_width="296dp"
-        android:layout_height="291dp"
-        android:layout_marginBottom="28dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="TextView"
         android:textColor="@color/black"
@@ -47,47 +49,49 @@
         app:layout_constraintBottom_toTopOf="@+id/btnBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.512" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="248dp"
         android:layout_height="39dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Developed By"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvAbout1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/tvAbout1"
         android:layout_width="285dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="TextView"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="249dp"
         android:layout_height="32dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
+        android:text="About the Application"
         android:textColor="@color/black"
         android:textSize="24sp"
-        android:text="About the Application"
-        app:layout_constraintBottom_toTopOf="@+id/tvAbout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAbout1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
