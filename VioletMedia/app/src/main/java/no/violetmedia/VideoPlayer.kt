@@ -55,11 +55,11 @@ class VideoPlayer : AppCompatActivity() {
             MediaItem.fromUri(videoUri)
         } else {
             val subtitleUri = Uri.parse(subtitle)
-            val subtitle = MediaItem.SubtitleConfiguration.Builder(subtitleUri)
+            val subtitleConfig = MediaItem.SubtitleConfiguration.Builder(subtitleUri)
                 .setMimeType("text/vtt")
                 .setSelectionFlags(C.SELECTION_FLAG_DEFAULT)
                 .build()
-            MediaItem.Builder().setUri(videoUri).setSubtitleConfigurations(listOf(subtitle)).build()
+            MediaItem.Builder().setUri(videoUri).setSubtitleConfigurations(listOf(subtitleConfig)).build()
         }
 
         player.setMediaItem(mediaItem)

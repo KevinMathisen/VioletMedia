@@ -36,6 +36,8 @@ class VideoAdapter(
             // Start video player
             val intent = Intent(holder.itemView.context, VideoPlayer::class.java)
             intent.putExtra("source", videos[position].source)
+            if (videos[position].subtitle != null)
+                intent.putExtra("subtitle", videos[position].subtitle)
             startActivity(holder.itemView.context, intent, null)
         }
         val item = videos[position]
