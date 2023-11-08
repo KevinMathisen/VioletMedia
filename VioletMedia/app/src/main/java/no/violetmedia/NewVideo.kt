@@ -13,6 +13,8 @@ import java.io.File
 import java.io.FileOutputStream
 
 class NewVideo : AppCompatActivity() {
+
+    // Initialize variables
     private lateinit var binding: ActivityNewVideoBinding
     private lateinit var sf: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
@@ -22,6 +24,7 @@ class NewVideo : AppCompatActivity() {
         binding = ActivityNewVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Set an OnClickListener for the "Confirm" button
         binding.btnConfirm.setOnClickListener {
             newVideo()
         }
@@ -30,8 +33,9 @@ class NewVideo : AppCompatActivity() {
         sf = getSharedPreferences("my_sf", MODE_PRIVATE)
         editor = sf.edit()
 
-        // Set an OnClickListener for the "Select Video" button (formerly btnSelectVideo)
+        // Set an OnClickListener for the "Select Video (...)" button
         binding.btnSelectVideo.setOnClickListener {
+
             // Create an intent to open the file picker
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "video/*"
@@ -43,20 +47,34 @@ class NewVideo : AppCompatActivity() {
             finish()
         }
     }
-
+    /**
+    @brief This method is called when the NewVideo activity is paused.
+     The method saves the name entered in the name EditText field to shared preferences.
+     */
     override fun onPause() {
         super.onPause()
         val name = binding.etName.text.toString()
         editor.putString("sf_name", name).apply()
     }
 
+    /**
+     * @brief This method is called when the NewVideo activity is resumed.
+     * The method retries the name from the shared preferences and sets it to the name EditText.
+     */
     override fun onResume() {
         super.onResume()
         val name = sf.getString("sf_name", null)
         binding.etName.setText(name)
     }
 
-    // onActivityResult method to handle the selected video
+    /**
+     * @brief Overrides the 'onActivityResult' method to handle the result of picking a video.
+     * The method is called when an activity started with 'startActivityForResult' returns a result.
+     *
+     * @param requestCode The code that originally supplied 'startActivityForResult'.
+     * @param resultCode The result code returned from the child activity.
+     * @param data An Intent that carries the resulting data (URI).
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_PICK_VIDEO && resultCode == Activity.RESULT_OK) {
@@ -70,6 +88,12 @@ class NewVideo : AppCompatActivity() {
         }
     }
 
+    /**
+     * @brief
+     * Text---
+     *
+     * @param uri
+     */
     private fun copyVideoToPrivateStorage(uri: Uri): String? {
         return try {
             val inputStream = contentResolver.openInputStream(uri)
@@ -85,6 +109,13 @@ class NewVideo : AppCompatActivity() {
         }
     }
 
+    /**
+     * @brief Adds a new video to the library: Your Videos
+     *
+     * This method collects data about a new video, name, description, url, subtitle
+     * It also validates the user inputs to ensure that the url is valid and the name is unique
+     * If these checks pass, the video information is stored, and we get a success message
+     */
     private fun newVideo() {
         val name: String = binding.etName.text.toString().trim()
         val url: String = binding.etUrl.text.toString().trim()

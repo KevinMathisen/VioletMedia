@@ -12,17 +12,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        binding.btnSettings.setOnClickListener {
+        // Set an OnClickListener for the "About" button
+        binding.btnAbout.setOnClickListener {
             val intent = Intent(this, About::class.java)
             startActivity(intent)
         }
 
+        // Set an OnClickListener for the "New Video" button
         binding.btnNewVideo.setOnClickListener {
             val intent = Intent(this, NewVideo::class.java)
             startActivity(intent)
         }
 
+        // Set an OnClickListener for the "Your Video" button
         binding.btnStoredVideo.setOnClickListener {
             val intent = Intent(this, StoredVideo::class.java)
             startActivity(intent)

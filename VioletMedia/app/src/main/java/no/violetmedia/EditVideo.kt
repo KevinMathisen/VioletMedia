@@ -53,10 +53,12 @@ class EditVideo : AppCompatActivity() {
             Toast.makeText(this, "Video saved!", Toast.LENGTH_SHORT).show()
         }
 
+        // Set an OnClickListener for the "Delete" button
         binding.btnEditDelete.setOnClickListener {
             askForDeleteConfirmation(orgName)
         }
 
+        // Set an OnClickListener for the "Back" button
         binding.btnEditBack.setOnClickListener {
             val intent = Intent("BroadcastReceiver")
             sendBroadcast(intent)

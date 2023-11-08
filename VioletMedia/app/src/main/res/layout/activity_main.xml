@@ -52,7 +52,7 @@
         app:layout_constraintVertical_bias="0.098" />
 
     <Button
-        android:id="@+id/btnSettings"
+        android:id="@+id/btnAbout"
         android:layout_width="300dp"
         android:layout_height="67dp"
         android:layout_marginTop="64dp"

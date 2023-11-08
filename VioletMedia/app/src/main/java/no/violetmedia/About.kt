@@ -18,6 +18,7 @@ class About : AppCompatActivity() {
 
         binding.tvAbout2.text = getString(R.string.about)
 
+        // Set an OnClickListener for the "Back" button
         binding.btnBack.setOnClickListener {
             finish()
         }
