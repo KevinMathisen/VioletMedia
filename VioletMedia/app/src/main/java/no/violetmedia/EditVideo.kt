@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import no.violetmedia.databinding.ActivityEditVideoBinding
 import no.violetmedia.databinding.ConfirmDeleteDialogBinding
+import java.io.File
 
 /**
  * Activity class for editing a given video
@@ -107,7 +108,8 @@ class EditVideo : AppCompatActivity() {
         // Delete video given on confirm button click
         binding.confirmButton.setOnClickListener {
 
-
+            // Tries to delete the video from persistent storage if it is local, if not nothing happens
+            deleteLocalFile(videoName)
 
             // Get videos, remove selected video, and save the new list
             var videos = VideoDataManager.getVideos(applicationContext)
@@ -126,5 +128,20 @@ class EditVideo : AppCompatActivity() {
 
         // Show the confirmDialog
         confirmView.show()
+    }
+
+    /**
+     * Deletes a local file if it exists
+     *
+     * @param name Name of file to be deleted
+     */
+    private fun deleteLocalFile(name: String) {
+        // Create file object to delete
+        val fileToDelete = File(filesDir, name)
+
+        // If file exists, delete it
+        if (fileToDelete.exists()) {
+            fileToDelete.delete()
+        }
     }
 }
