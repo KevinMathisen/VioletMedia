@@ -52,13 +52,23 @@ class NewVideo : AppCompatActivity() {
         }
     }
     /**
-    @brief This method is called when the NewVideo activity is paused.
-     The method saves the name entered in the name EditText field to shared preferences.
+     * Saves the input entered in the input fields to shared preferences
      */
     override fun onPause() {
         super.onPause()
+
         val name = binding.etName.text.toString()
-        editor.putString("sf_name", name).apply()
+        val url = binding.etUrl.text.toString()
+        val description = binding.etDescription.text.toString()
+        val subtitleUrl = binding.etSubtitleUrl.text.toString()
+
+        val editor = sf.edit()
+        editor.putString("sf_name", name)
+        editor.putString("sf_url", url)
+        editor.putString("sf_description", description)
+        editor.putString("sf_subtitle_url", subtitleUrl)
+
+        editor.apply()
     }
 
     /**
@@ -67,8 +77,16 @@ class NewVideo : AppCompatActivity() {
      */
     override fun onResume() {
         super.onResume()
+
         val name = sf.getString("sf_name", null)
+        val url = sf.getString("sf_url", null)
+        val description = sf.getString("sf_description", null)
+        val subtitleUrl = sf.getString("sf_subtitle_url", null)
+
         binding.etName.setText(name)
+        binding.etUrl.setText(url)
+        binding.etDescription.setText(description)
+        binding.etSubtitleUrl.setText(subtitleUrl)
     }
 
     /**
@@ -151,7 +169,7 @@ class NewVideo : AppCompatActivity() {
 
             // Use local reference, if not found inform user
             if (urlTemp == null) {
-                Toast.makeText(this, "Can't add video, error when adding local video", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Can't add video, try to enter video source again", Toast.LENGTH_SHORT).show()
                 return
             } else {
                 url = urlTemp
