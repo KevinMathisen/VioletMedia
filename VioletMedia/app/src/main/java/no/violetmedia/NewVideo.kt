@@ -12,28 +12,32 @@ import no.violetmedia.databinding.ActivityNewVideoBinding
 import java.io.File
 import java.io.FileOutputStream
 
+/**
+ * Activity which creates a new video and adds it to persistent storage
+ */
 class NewVideo : AppCompatActivity() {
 
-    // Initialize variables
     private lateinit var binding: ActivityNewVideoBinding
     private lateinit var sf: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Set up binding
         binding = ActivityNewVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Set an OnClickListener for the "Confirm" button
+        // run newVideo method on "Confirm" button click
         binding.btnConfirm.setOnClickListener {
             newVideo()
         }
 
-        // Initialize the shared preferences and editor
+        // Initialize shared preferences and editor
         sf = getSharedPreferences("my_sf", MODE_PRIVATE)
         editor = sf.edit()
 
-        // Set an OnClickListener for the "Select Video (...)" button
+        // Launch android get content on "Select Video (...)" button click
         binding.btnSelectVideo.setOnClickListener {
 
             // Create an intent to open the file picker
@@ -42,7 +46,7 @@ class NewVideo : AppCompatActivity() {
             startActivityForResult(intent, REQUEST_PICK_VIDEO)
         }
 
-        // Set an OnClickListener for the "Back" button
+        // Finish activity on back button click
         binding.btnBack.setOnClickListener {
             finish()
         }
@@ -80,8 +84,7 @@ class NewVideo : AppCompatActivity() {
         if (requestCode == REQUEST_PICK_VIDEO && resultCode == Activity.RESULT_OK) {
             val selectedVideoUri = data?.data
             if (selectedVideoUri != null) {
-                val videoPath = copyVideoToPrivateStorage(selectedVideoUri)
-                binding.etUrl.setText(videoPath)
+                binding.etUrl.setText(selectedVideoUri.toString())
 
                 Toast.makeText(this, "Video file found!", Toast.LENGTH_SHORT).show()
             }
@@ -89,20 +92,25 @@ class NewVideo : AppCompatActivity() {
     }
 
     /**
-     * @brief
-     * Text---
+     * Copies the saved video to local storage, such that it is accessible after application restart
      *
-     * @param uri
+     * @param uri Uri of video to add
+     * @param name Name of video to add
      */
-    private fun copyVideoToPrivateStorage(uri: Uri): String? {
+    private fun copyVideoToPrivateStorage(uri: Uri, name: String): String? {
         return try {
+            // Create inputstream as input
             val inputStream = contentResolver.openInputStream(uri)
-            val outputFile = File(filesDir, "video.mp4")
+            // Create the output file
+            val fileName = "$name.mp4"
+            val outputFile = File(filesDir, fileName)
 
+            // Copy the input to the outputfile
             FileOutputStream(outputFile).use { outputStream ->
                 inputStream?.copyTo(outputStream)
             }
 
+            // Returns the files path
             outputFile.absolutePath
         } catch (e: Exception) {
             null
@@ -110,40 +118,63 @@ class NewVideo : AppCompatActivity() {
     }
 
     /**
-     * @brief Adds a new video to the library: Your Videos
+     * @brief Creates and saves a new video to persistent storage
      *
-     * This method collects data about a new video, name, description, url, subtitle
-     * It also validates the user inputs to ensure that the url is valid and the name is unique
-     * If these checks pass, the video information is stored, and we get a success message
+     * This method gets a videos details, validates the input, then creates a new video and saves it to persistent storage
      */
     private fun newVideo() {
+
+        // Get user input
         val name: String = binding.etName.text.toString().trim()
-        val url: String = binding.etUrl.text.toString().trim()
+        var url: String = binding.etUrl.text.toString().trim()
         val description = binding.etDescription.text.toString().trim()
         val subtitleUrl = binding.etSubtitleUrl.text.toString().trim()
 
+        // Check if required fields are empty
         if (name.isEmpty() || url.isEmpty()) {
             Toast.makeText(this, "Can't add video, have to specify name and URL", Toast.LENGTH_SHORT).show()
             return
         }
 
+        // Check if the video already exists
         if (VideoDataManager.doesVideoExist(this, name)) {
             Toast.makeText(this, "Can't add video, video with name already exists", Toast.LENGTH_SHORT).show()
             return
         }
 
-       val subtitle = if (subtitleUrl != "") subtitleUrl else null
+        // Create local video if local
+        if (url.startsWith("content:")) {
 
+            // Save video to local storage and get reference to it
+            val uri = Uri.parse(url)
+            val urlTemp = copyVideoToPrivateStorage(uri, name)
+
+            // Use local reference, if not found inform user
+            if (urlTemp == null) {
+                Toast.makeText(this, "Can't add video, error when adding local video", Toast.LENGTH_SHORT).show()
+                return
+            } else {
+                url = urlTemp
+            }
+        }
+
+        // Convert subtitle to null if empty
+        val subtitle = if (subtitleUrl != "") subtitleUrl else null
+
+        // Create new video instance and save it to storage
         val newVideo = VideoData(name, description, url, subtitle)
         val currentVideos = VideoDataManager.getVideos(this).toMutableList()
         currentVideos.add(newVideo)
         VideoDataManager.saveVideos(applicationContext, currentVideos)
 
+        // Inform user of success
         Toast.makeText(this, "Video added successfully!", Toast.LENGTH_SHORT).show()
 
+        // Clear all input field on success
         binding.etName.text.clear()
         binding.etUrl.text.clear()
         binding.etDescription.text.clear()
+        binding.etSubtitleUrl.text.clear()
     }
 
     companion object {
