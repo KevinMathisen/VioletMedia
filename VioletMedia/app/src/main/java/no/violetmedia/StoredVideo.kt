@@ -21,9 +21,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import no.violetmedia.databinding.ActivityStoredVideoBinding
 import java.util.Locale
 
+/**
+ * Activity for displaying videos stored, which launches activities for editing and playing videos on click
+ */
 class StoredVideo : AppCompatActivity() {
 
-    // Initialize variables
     private lateinit var textToSpeech: TextToSpeech
     private lateinit var spokenText: String
     private lateinit var binding: ActivityStoredVideoBinding
@@ -35,94 +37,89 @@ class StoredVideo : AppCompatActivity() {
     private var filter: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Set up binding
         binding = ActivityStoredVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
-        /**
-         * @brief Initializes a TextToSpeech instance for speech synthesis.
-         *
-         * This method created a TextToSpeech instance, with a callback to handle the initialization status.
-         * If the initialization is successful, it sets the language for the speech synthesis.
-         *
-         * @param context The application context.
-         */
-        textToSpeech = TextToSpeech(this) { status ->
-            if (status != TextToSpeech.ERROR) {
-                // Set the language, if needed
-                textToSpeech.language = Locale.US // You can change this as needed
+        // Initiate videoAdapter which will list all stored videos
+        val videos = VideoDataManager.getVideos(applicationContext)
+        val adapter = VideoAdapter(videos, this)
+        binding.rvVideos.adapter = adapter
+        binding.rvVideos.layoutManager = LinearLayoutManager(this)
+
+
+        // On input in filter field, update videos displayed
+        binding.etFilter.doOnTextChanged { _, _, _, _ ->
+            val filter = binding.etFilter.text.toString()
+            filterVideos(filter)
+        }
+
+
+        // Initiate receiver which will refresh videos displayed on update of list
+        val receiver = object : BroadcastReceiver() {
+
+            override fun onReceive(context: Context, intent: Intent) {
+                // Update videos displayed
+                val videosLocal = VideoDataManager.getVideos(applicationContext)
+                val adapterLocal = VideoAdapter(videosLocal, binding.root.context)
+                binding.rvVideos.adapter = adapterLocal
+                // Reset filter
+                binding.etFilter.setText("")
             }
         }
 
-        // Calls to request microphone permissions
+
+        val intentFilter = IntentFilter("RefreshStoredVideos")
+        registerReceiver(receiver, intentFilter, RECEIVER_EXPORTED)
+
+        /**
+         * Initializes a TextToSpeech instance for speech synthesis.
+         *
+         * @param context application context.
+         */
+        textToSpeech = TextToSpeech(this) { status ->
+            if (status != TextToSpeech.ERROR) {
+                // Set the language
+                textToSpeech.language = Locale.US
+            }
+        }
+
+        // Request microphone permissions
         requestMicrophonePermission()
 
-        // Set an OnClickListener for the "Mic" button
+        // Call startspeechrecognition function on "Mic" button click
         binding.btnSpeech.setOnClickListener {
             startSpeechRecognition()
         }
 
-        // Set an OnClickListener for the "Back" button
+        // Finish activity on "Back" button click
         binding.btnBack.setOnClickListener {
             finish()
         }
 
 
         /**
-         * @brief Sets UtteranceProgressListener for monitoring the progress of the speech synthesis.
+         * Sets UtteranceProgressListener for monitoring progress of speech synthesis
          *
-         * This method sets an UtteranceProgressListener to track the progress of the TextToSpeech engine.
-         * When the synthesis is completed, it updates the 'spokenText' with the utterance ID or null.
-         * It then applies the 'spokenText as a filter which is used in the filtering function.
-         *
-         * @param UtteranceProgressListener instance to monitor speech synthesis progress.
+         * @param object instance to monitor speech synthesis progress
          */
         textToSpeech.setOnUtteranceProgressListener(object: UtteranceProgressListener() {
             override fun onDone(utteranceId: String?){
                 spokenText = utteranceId ?: ""
                 filter = spokenText
+                binding.etFilter.setText(filter)
                 filterVideos(filter)
-
             }
-            override fun onError(utteranceId: String?) {
-                // Handle any errors if needed
-            }
-
-            override fun onStart(utteranceId: String?) {
-                // Handle the start of speech if needed
-            }
+            override fun onError(utteranceId: String?) {}
+            override fun onStart(utteranceId: String?) {}
         })
-
-        binding.etFilter.doOnTextChanged { _, _, _, _ ->
-            val filter = binding.etFilter.text.toString()
-            filterVideos(filter)
-        }
-
-        val receiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context, intent: Intent) {
-                val videos = VideoDataManager.getVideos(applicationContext)
-                val adapter = VideoAdapter(videos, binding.root.context)
-                binding.rvVideos.adapter = adapter
-                binding.etFilter.setText("")
-            }
-        }
-
-        val videos = VideoDataManager.getVideos(applicationContext)
-        val filter = IntentFilter("BroadcastReceiver")
-        registerReceiver(receiver, filter, RECEIVER_EXPORTED)
-
-
-        val adapter = VideoAdapter(videos, this)
-        binding.rvVideos.adapter = adapter
-        binding.rvVideos.layoutManager = LinearLayoutManager(this)
 
     }
 
     /**
-     * @brief Requests microphone permission for speech recognition.
-     *
-     * This method checks if the app has the required microphone permissions to perform speech synthesis.
-     * If it does not have permission already, it prompts the user of the application.
+     * Requests microphone permission for speech recognition if not given
      */
     private fun requestMicrophonePermission() {
         val permission = Manifest.permission.RECORD_AUDIO
@@ -133,10 +130,7 @@ class StoredVideo : AppCompatActivity() {
 
 
     /**
-     * @brief Initiates the speech recognition process.
-     *
-     * This method sets up and begins the speech recognition process.
-     * This is done by launching an Intent to recognize speech input.
+     * initiates the speech recognition process
      */
     private fun startSpeechRecognition() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
@@ -145,24 +139,22 @@ class StoredVideo : AppCompatActivity() {
     }
 
     /**
-     * @brief Handles the result of the speech recognition.
+     * Handles the result of the speech recognition
+     * Updates the list of videos based on speech output
      *
-     * This method is called when the speech recognition Intent returns a result.
-     * It also updates the list of videos, processes recognized speech input, and triggers filtering.
-     *
-     * @param requestCode The request code to identify the operation.
-     * @param resultCode The result code indicating success or failure.
-     * @param data An Intent that may contain recognized speech results.
+     * @param requestCode The request code to identify the operation
+     * @param resultCode The result code indicating success or failure
+     * @param data An Intent that may contain recognized speech results
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        val videos = VideoDataManager.getVideos(applicationContext)
-        binding.rvVideos.adapter = VideoAdapter(videos, this)
-
+        // If the users speech was successfully heard and processed
         if (requestCode == REQUEST_SPEECH_RECOGNITION && resultCode == RESULT_OK) {
             val results = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
             if (!results.isNullOrEmpty()) {
+
+                // Get the input and update the filter with this
                 spokenText = results[0]
                 filter = spokenText
                 binding.etFilter.setText(filter)
@@ -170,17 +162,28 @@ class StoredVideo : AppCompatActivity() {
             }
         }
     }
+
+    /**
+     * Filters vidoes displayed based on a given string
+     *
+     * @param query String to match video name and description with
+     */
     private fun filterVideos(query : String?) {
 
         val videoList = VideoDataManager.getVideos(this)
 
         val filteredList = mutableListOf<VideoData>()
+
+        // If user has entered a query
         if (query!=null) {
 
+            // Go trough each video which exists and add them to the filtered list if they match the query
             videoList.forEach { item ->
                 val name = item.name.lowercase()
                 val description = item.description?.lowercase() ?: ""
                 val keyword = query.lowercase()
+
+                // If the video name or description contains the query, the video is added to the filtered list
                 if (name.contains(keyword) || description.contains(keyword))  {
                     filteredList.add(item)
                 }
@@ -188,11 +191,15 @@ class StoredVideo : AppCompatActivity() {
 
         }
 
+        // Update the videos shown to the filtered list
         val adapter = VideoAdapter(filteredList, this)
         binding.rvVideos.adapter = adapter
         binding.rvVideos.layoutManager = LinearLayoutManager(this)
     }
 
+    /**
+     * Hides the keyboard if it is used
+     */
     private fun hideKeyboard() {
         val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         if (currentFocus != null) {
@@ -201,10 +208,7 @@ class StoredVideo : AppCompatActivity() {
     }
 
     /**
-     * @brief Performs cleanup when the activity is destroyed.
-     *
-     * This method is called when the StoredActivity is being destroyed (shutdown or navigation).
-     * It performs cleanup task such as stopping speech synthesis and the TextToSpeech engine.
+     * Stops the text-to-speech when the activity is stopped
      */
     override fun onDestroy(){
         if (textToSpeech.isSpeaking){
@@ -212,7 +216,6 @@ class StoredVideo : AppCompatActivity() {
             textToSpeech.stop()
         textToSpeech.shutdown()
 
-        // Call the superclass's onDestroy method for additional cleanup.
         super.onDestroy()
     }
 }
