@@ -181,7 +181,7 @@ class NewVideo : AppCompatActivity() {
 
         // Create new video instance and save it to storage
         val newVideo = VideoData(name, description, url, subtitle)
-        val currentVideos = VideoDataManager.getVideos(this).toMutableList()
+        val currentVideos = VideoDataManager.getVideos(this)
         currentVideos.add(newVideo)
         VideoDataManager.saveVideos(applicationContext, currentVideos)
 
