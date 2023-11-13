@@ -137,7 +137,8 @@ class EditVideo : AppCompatActivity() {
      */
     private fun deleteLocalFile(name: String) {
         // Create file object to delete
-        val fileToDelete = File(filesDir, name)
+        val fileName = "$name.mp4"
+        val fileToDelete = File(filesDir, fileName)
 
         // If file exists, delete it
         if (fileToDelete.exists()) {
