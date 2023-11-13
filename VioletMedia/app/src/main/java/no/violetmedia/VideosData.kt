@@ -17,7 +17,7 @@ import java.io.Serializable
 data class VideoData(var name: String, var description: String?, var source: String, var subtitle: String?)
 
 /**
- * A companionobject which manages the persistent storage and retrival of videos in the application
+ * A companionobject which manages the persistent storage and retrieval of videos in the application
  */
 class VideoDataManager {
     companion object {
