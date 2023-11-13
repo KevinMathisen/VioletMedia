@@ -102,7 +102,14 @@ class NewVideo : AppCompatActivity() {
         if (requestCode == REQUEST_PICK_VIDEO && resultCode == Activity.RESULT_OK) {
             val selectedVideoUri = data?.data
             if (selectedVideoUri != null) {
-                binding.etUrl.setText(selectedVideoUri.toString())
+
+                // Set the url field to be the source of the local file
+                val url = selectedVideoUri.toString()
+                val editor = sf.edit()
+                editor.putString("sf_url", url)
+                editor.apply()
+                binding.etUrl.setText(url)
+
 
                 Toast.makeText(this, "Video file found!", Toast.LENGTH_SHORT).show()
             }
