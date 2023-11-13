@@ -120,7 +120,7 @@ class EditVideo : AppCompatActivity() {
             confirmView.dismiss()
 
             // Create and send broadcast for refreshing videos displayed in the storedvideo activity
-            val intent = Intent("BroadcastReceiver")
+            val intent = Intent("RefreshStoredVideos")
             sendBroadcast(intent)
 
             finish()
