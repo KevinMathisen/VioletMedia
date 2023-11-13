@@ -12,7 +12,7 @@
         android:id="@+id/btnBack"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:height="90dp"
         android:backgroundTint="@color/background2"
         android:text="Back"
@@ -38,13 +38,13 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.131" />
+        app:layout_constraintVertical_bias="0.17" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="317dp"
-        android:layout_height="365dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="351dp"
+        android:layout_height="414dp"
+        android:layout_marginTop="24dp"
         android:background="@color/background2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -53,12 +53,13 @@
 
         <EditText
             android:id="@+id/etName"
-            android:layout_width="wrap_content"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:ems="10"
             android:hint="Name"
             android:inputType="text"
+            android:textColor="@color/black"
             android:textColorHint="@color/background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.231"
@@ -67,39 +68,30 @@
 
         <EditText
             android:id="@+id/etUrl"
-            android:layout_width="wrap_content"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:ems="10"
             android:hint="URL"
             android:inputType="text"
+            android:textColor="@color/black"
             android:textColorHint="@color/background"
             app:layout_constraintStart_toStartOf="@+id/etName"
             app:layout_constraintTop_toBottomOf="@+id/etName" />
 
         <EditText
-            android:id="@+id/etDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:ems="10"
-            android:hint="Description"
-            android:inputType="text"
-            android:textColorHint="@color/background"
-            app:layout_constraintStart_toStartOf="@+id/etUrl"
-            app:layout_constraintTop_toBottomOf="@+id/etUrl" />
-
-        <EditText
             android:id="@+id/etSubtitleUrl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
+            android:width="240dp"
             android:ems="10"
             android:hint="SubtitleUrl (Optional)"
             android:inputType="text"
+            android:textColor="@color/black"
             android:textColorHint="@color/background"
-            app:layout_constraintStart_toStartOf="@+id/etDescription"
-            app:layout_constraintTop_toBottomOf="@+id/etDescription" />
+            app:layout_constraintStart_toStartOf="@+id/etUrl"
+            app:layout_constraintTop_toBottomOf="@+id/etUrl" />
 
         <Button
             android:id="@+id/btnSelectVideo"
@@ -108,6 +100,22 @@
             android:text="..."
             app:layout_constraintStart_toEndOf="@+id/etUrl"
             app:layout_constraintTop_toTopOf="@+id/etUrl" />
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="280dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Descripton"
+            android:inputType="textMultiLine"
+            android:textColor="@color/black"
+            android:textColorHint="@color/background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/etSubtitleUrl"
+            app:layout_constraintTop_toBottomOf="@+id/etSubtitleUrl" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

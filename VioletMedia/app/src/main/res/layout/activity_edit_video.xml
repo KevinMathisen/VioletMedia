@@ -24,7 +24,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="350dp"
-        android:layout_height="428dp"
+        android:layout_height="430dp"
         android:layout_marginTop="16dp"
         android:background="@color/background2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,53 +34,57 @@
 
         <EditText
             android:id="@+id/etUrlEdit"
-            android:layout_width="239dp"
+            android:layout_width="280dp"
             android:layout_height="67dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:ems="10"
             android:inputType="text"
-            android:textColorHint="@color/background"
+            android:textColorHint="@color/black"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="@+id/etNameEdit"
             app:layout_constraintTop_toBottomOf="@+id/etNameEdit" />
 
         <EditText
             android:id="@+id/etNameEdit"
-            android:layout_width="237dp"
-            android:layout_height="65dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="280dp"
+            android:layout_height="63dp"
+            android:layout_marginTop="24dp"
             android:ems="10"
             android:inputType="text"
+            android:textColor="@color/black"
             android:textColorHint="@color/background"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/etDescriptionEdit"
-            android:layout_width="238dp"
+            android:id="@+id/etSubUrlEdit"
+            android:layout_width="280dp"
             android:layout_height="67dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:ems="10"
             android:inputType="text"
+            android:textColor="@color/black"
             android:textColorHint="@color/background"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="@+id/etUrlEdit"
             app:layout_constraintTop_toBottomOf="@+id/etUrlEdit" />
 
         <EditText
-            android:id="@+id/etSubUrlEdit"
-            android:layout_width="238dp"
-            android:layout_height="67dp"
-            android:layout_marginTop="32dp"
+            android:id="@+id/etDescriptionEdit"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
             android:ems="10"
-            android:inputType="text"
-            android:textColorHint="@color/background"
-            android:textSize="22sp"
-            app:layout_constraintStart_toStartOf="@+id/etDescriptionEdit"
-            app:layout_constraintTop_toBottomOf="@+id/etDescriptionEdit" />
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/etSubUrlEdit"
+            app:layout_constraintStart_toStartOf="@+id/etSubUrlEdit"
+            app:layout_constraintTop_toBottomOf="@+id/etSubUrlEdit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
