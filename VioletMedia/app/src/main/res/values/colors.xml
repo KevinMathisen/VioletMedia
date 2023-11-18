@@ -4,10 +4,11 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="background">#F31F1F23</color>
-    <color name="background2">#391083</color>
+    <color name="background2">#6932CD</color>
 
     <color name="backgroundLight">#CBCBDD</color>
-    <color name="backgroundLight2">#6F4EAA</color>
+    <color name="backgroundLight2">#9978D3</color>
     <color name="applybutton">#1B5E20</color>
     <color name="delete">#831031</color>
+    <color name="title1">#B1B1BC</color>
 </resources>
