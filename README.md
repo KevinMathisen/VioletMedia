@@ -1,7 +1,7 @@
 # PROG2007_Project
 
 ## Overview
-This is a PROG2007 NTNU project where we have developed an android applicaiton. 
+This is a PROG2007 NTNU project where we have developed an android application. 
 Group members:
 * Martin Solevåg Glærum
 * Carl Petter Mørch-Reiersen
