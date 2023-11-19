@@ -109,7 +109,7 @@
             android:layout_marginBottom="24dp"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="Descripton"
+            android:hint="Description"
             android:inputType="textMultiLine"
             android:textColor="@color/black"
             android:textColorHint="@color/background"
