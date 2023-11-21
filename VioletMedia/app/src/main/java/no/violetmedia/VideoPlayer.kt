@@ -7,12 +7,15 @@ import android.os.PersistableBundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsetsController
+import android.widget.Toast
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.media3.common.C
 import androidx.media3.exoplayer.ExoPlayer
 import no.violetmedia.databinding.ActivityVideoPlayerBinding
 import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
+import androidx.media3.common.Player
 import androidx.media3.exoplayer.SimpleExoPlayer
 
 /**
@@ -82,11 +85,21 @@ class VideoPlayer : AppCompatActivity() {
             MediaItem.Builder().setUri(videoUri).setSubtitleConfigurations(listOf(subtitleConfig)).build()
         }
 
+        // Set up handling of playback error if video fails to load
+        player.addListener(object: Player.Listener {
+            override fun onPlayerError(error: PlaybackException) {
+                super.onPlayerError(error)
+                Toast.makeText(this@VideoPlayer, "Error loading video, the url provided does not work", Toast.LENGTH_LONG).show()
+            }
+        })
+
         // set mediaitem of exoplayer and other values based on saved state
         player.setMediaItem(mediaItem)
         player.prepare()
         player.playWhenReady = playWhenReady
         player.seekTo(currentWindow, playbackPos)
+
+
     }
 
     /**
