@@ -8,4 +8,6 @@ app.use(express.static(path.join(__dirname, "videos")));
 
 app.listen(port, () => {
 	console.log(`Server is running on port ${port}`);
+	console.log(`Your videos are available at 'http://your-ip-adress:${port}/your-video-name.type`);
+	console.log(`You can get your ip-adress using the command 'ipconfig' in your terminal`)
 })
