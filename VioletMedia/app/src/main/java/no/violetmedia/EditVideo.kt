@@ -100,6 +100,7 @@ class EditVideo : AppCompatActivity() {
             subtitleType = when {
                 subtitleText.endsWith(".vtt") -> MimeTypes.TEXT_VTT
                 subtitleText.endsWith(".xml") -> MimeTypes.APPLICATION_TTML
+                subtitleText.endsWith(".ttml") -> MimeTypes.APPLICATION_TTML
                 subtitleText.endsWith(".ass") -> MimeTypes.TEXT_SSA
                 subtitleText.endsWith(".srt") -> MimeTypes.APPLICATION_SUBRIP
                 else -> "unknown"
