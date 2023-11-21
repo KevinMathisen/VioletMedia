@@ -3,6 +3,7 @@ package no.violetmedia
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.os.PersistableBundle
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,7 @@ class VideoPlayer : AppCompatActivity() {
         // Get source and subtitle
         val source = intent.getStringExtra("source") ?: ""
         val subtitle = intent.getStringExtra("subtitle")
+        val subtitleType = intent.getStringExtra("subtitleType")
 
         // If the activity has a savedinstancestate, get the saved values
         if (savedInstanceState != null) {
@@ -48,7 +50,7 @@ class VideoPlayer : AppCompatActivity() {
         }
 
         // Set up and start playing the video from the source with subtitles if provided
-        initializeExoPlayer(source, subtitle)
+        initializeExoPlayer(source, subtitle, subtitleType)
 
         // Hide systembars
         enterFullScreen()
@@ -60,7 +62,7 @@ class VideoPlayer : AppCompatActivity() {
      * @param url Url of the video. Can either be an online url or a local reference to a file
      * @param subtitle Url of an optional subtitle file
       */
-    private fun initializeExoPlayer(url: String, subtitle: String?) {
+    private fun initializeExoPlayer(url: String, subtitle: String?, subtitleType: String?) {
 
         // Build and link exoplayer to playerView
         player = ExoPlayer.Builder(this).build()
@@ -78,7 +80,7 @@ class VideoPlayer : AppCompatActivity() {
             // Create subtitleConfig
             val subtitleUri = Uri.parse(subtitle)
             val subtitleConfig = MediaItem.SubtitleConfiguration.Builder(subtitleUri)
-                .setMimeType("text/vtt")
+                .setMimeType(subtitleType)
                 .setSelectionFlags(C.SELECTION_FLAG_DEFAULT)
                 .build()
             // Create mediaitem
@@ -89,7 +91,10 @@ class VideoPlayer : AppCompatActivity() {
         player.addListener(object: Player.Listener {
             override fun onPlayerError(error: PlaybackException) {
                 super.onPlayerError(error)
-                Toast.makeText(this@VideoPlayer, "Error loading video, the url provided does not work", Toast.LENGTH_LONG).show()
+                // Delay the error message to ensure no overlap of toast message when launching the videoplayer
+                Handler().postDelayed({
+                    Toast.makeText(this@VideoPlayer, "Error loading video, the url provided does not work", Toast.LENGTH_LONG).show()
+                }, 1000)
             }
         })
 

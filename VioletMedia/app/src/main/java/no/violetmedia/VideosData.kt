@@ -14,7 +14,7 @@ import java.io.Serializable
  * @param source Source of the video, can either be an url or a reference to a local file
  * @param subtitle Url of a subtitle file, can be null
  */
-data class VideoData(var name: String, var description: String?, var source: String, var subtitle: String?)
+data class VideoData(var name: String, var description: String?, var source: String, var subtitle: String?, var subtitleType: String?)
 
 /**
  * A companionobject which manages the persistent storage and retrieval of videos in the application

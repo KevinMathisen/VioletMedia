@@ -58,13 +58,16 @@ class VideoAdapter(
         holder.binding.imgbutPlay.setOnClickListener {
 
             // Inform user of videoplayer launch
-            Toast.makeText(holder.itemView.context,"Video is now playing", Toast.LENGTH_SHORT).show()
+            Toast.makeText(holder.itemView.context,"Videoplayer is launching", Toast.LENGTH_SHORT).show()
 
             // Start video player with videoname and subtitles if they are defined
             val intent = Intent(holder.itemView.context, VideoPlayer::class.java)
             intent.putExtra("source", video.source)
-            if (videos[position].subtitle != null)
+            if (videos[position].subtitle != null) {
                 intent.putExtra("subtitle", video.subtitle)
+                intent.putExtra("subtitleType", video.subtitleType)
+            }
+
             startActivity(holder.itemView.context, intent, null)
         }
 

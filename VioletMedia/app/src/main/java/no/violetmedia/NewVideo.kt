@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.media3.common.MimeTypes
 import no.violetmedia.databinding.ActivityNewVideoBinding
 import java.io.File
 import java.io.FileOutputStream
@@ -183,11 +184,31 @@ class NewVideo : AppCompatActivity() {
             }
         }
 
-        // Convert subtitle to null if empty
-        val subtitle = if (subtitleUrl != "") subtitleUrl else null
+        var subtitle: String? = null
+        var subtitleType: String? = null
+        // Set subtitle source and type if specified by user
+        if (subtitleUrl != "") {
+            subtitle = subtitleUrl
+
+            // Set subtitle type
+            subtitleType = when {
+                subtitleUrl.endsWith(".vtt") -> MimeTypes.TEXT_VTT
+                subtitleUrl.endsWith(".xml") -> MimeTypes.APPLICATION_TTML
+                subtitleUrl.endsWith(".ttml") -> MimeTypes.APPLICATION_TTML
+                subtitleUrl.endsWith(".ass") -> MimeTypes.TEXT_SSA
+                subtitleUrl.endsWith(".srt") -> MimeTypes.APPLICATION_SUBRIP
+                else -> "unknown"
+            }
+
+            // Cancel creation if format not known
+            if (subtitleType == "unknown") {
+                Toast.makeText(this, "Can't add video with selected subtitle, invalid subtitle format", Toast.LENGTH_SHORT).show()
+                return
+            }
+        }
 
         // Create new video instance and save it to storage
-        val newVideo = VideoData(name, description, url, subtitle)
+        val newVideo = VideoData(name, description, url, subtitle, subtitleType)
         val currentVideos = VideoDataManager.getVideos(this)
         currentVideos.add(newVideo)
         VideoDataManager.saveVideos(applicationContext, currentVideos)

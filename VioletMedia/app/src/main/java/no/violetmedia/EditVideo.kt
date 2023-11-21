@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.media3.common.MimeTypes
 import no.violetmedia.databinding.ActivityEditVideoBinding
 import no.violetmedia.databinding.ConfirmDeleteDialogBinding
 import java.io.File
@@ -77,7 +78,6 @@ class EditVideo : AppCompatActivity() {
         val newDesc = binding.etDescriptionEdit.text.toString()
         val newSource = binding.etUrlEdit.text.toString()
         val subtitleText = binding.etSubUrlEdit.text.toString()
-        val subtitle = if (subtitleText != "") subtitleText else null
 
         // Check if the name and source are not empty
         if (newName.isEmpty() || newSource.isEmpty()) {
@@ -91,8 +91,30 @@ class EditVideo : AppCompatActivity() {
             return
         }
 
+        var subtitle: String? = null
+        var subtitleType: String? = null
+        if (subtitleText != "") {
+            subtitle = subtitleText
+
+            // Set subtitle type
+            subtitleType = when {
+                subtitleText.endsWith(".vtt") -> MimeTypes.TEXT_VTT
+                subtitleText.endsWith(".xml") -> MimeTypes.APPLICATION_TTML
+                subtitleText.endsWith(".ass") -> MimeTypes.TEXT_SSA
+                subtitleText.endsWith(".srt") -> MimeTypes.APPLICATION_SUBRIP
+                else -> "unknown"
+            }
+
+            // Cancel edit if format not known
+            if (subtitleType == "unknown") {
+                Toast.makeText(this, "Can't save video with selected subtitle, invalid subtitle format", Toast.LENGTH_SHORT).show()
+                return
+            }
+        }
+
+
         // Create a new video with the given details
-        val newVideo = VideoData(newName, newDesc, newSource, subtitle)
+        val newVideo = VideoData(newName, newDesc, newSource, subtitle, subtitleType)
         // Replace the video edited in the video list
         val videosFiltered = videos.map { if (it.name == orgName) newVideo else it }.toMutableList()
 
