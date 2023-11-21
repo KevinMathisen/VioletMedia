@@ -52,24 +52,7 @@ class EditVideo : AppCompatActivity() {
 
         // Save video with new details on button click
         binding.btnEditSave.setOnClickListener {
-
-            // Get all values entered by the user
-            val newName = binding.etNameEdit.text.toString()
-            val newDesc = binding.etDescriptionEdit.text.toString()
-            val newSource = binding.etUrlEdit.text.toString()
-            val subtitleText = binding.etSubUrlEdit.text.toString()
-            val subtitle = if (subtitleText != "") subtitleText else null
-
-            // Create a new video with the given details
-            val newVideo = VideoData(newName, newDesc, newSource, subtitle)
-            // Replace the video edited in the video list
-            videos = videos.map { if (it.name == orgName) newVideo else it }.toMutableList()
-
-            // Save the updated videolist with the edited video
-            VideoDataManager.saveVideos(applicationContext, videos)
-
-            // Inform user of success
-            Toast.makeText(this, "Video saved!", Toast.LENGTH_SHORT).show()
+            editVideo(videos, orgName)
         }
 
         // Ask for confirmation of deletion on delete button click
@@ -86,6 +69,38 @@ class EditVideo : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    private fun editVideo(videos: MutableList<VideoData>, orgName: String) {
+        // Get all values entered by the user
+        val newName = binding.etNameEdit.text.toString()
+        val newDesc = binding.etDescriptionEdit.text.toString()
+        val newSource = binding.etUrlEdit.text.toString()
+        val subtitleText = binding.etSubUrlEdit.text.toString()
+        val subtitle = if (subtitleText != "") subtitleText else null
+
+        // Check if the name and source are not empty
+        if (newName.isEmpty() || newSource.isEmpty()) {
+            Toast.makeText(this, "Can't save, video has to have name and URL", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Check if the newname is already used by another video
+        if (newName != orgName && VideoDataManager.doesVideoExist(this, newName)) {
+            Toast.makeText(this, "Can't save video, video with name already exists", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Create a new video with the given details
+        val newVideo = VideoData(newName, newDesc, newSource, subtitle)
+        // Replace the video edited in the video list
+        val videosFiltered = videos.map { if (it.name == orgName) newVideo else it }.toMutableList()
+
+        // Save the updated videolist with the edited video
+        VideoDataManager.saveVideos(applicationContext, videosFiltered)
+
+        // Inform user of success
+        Toast.makeText(this, "Video saved!", Toast.LENGTH_SHORT).show()
     }
 
     /**
