@@ -1,10 +1,8 @@
 package no.violetmedia
 
-import android.app.Application
 import android.content.Context
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
-import java.io.Serializable
 
 /**
  * The VideoData dataclass represents a stored video

@@ -1,6 +1,5 @@
 package no.violetmedia
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import no.violetmedia.databinding.ActivityAboutBinding

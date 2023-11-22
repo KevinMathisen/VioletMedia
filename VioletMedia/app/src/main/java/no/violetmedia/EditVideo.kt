@@ -69,9 +69,16 @@ class EditVideo : AppCompatActivity() {
 
             finish()
         }
-
     }
 
+
+    /**
+     * Function that validates the changes in edit video, and if acceptable edits the video information
+     * This information is then saved in persistent storage
+     *
+     * @param vidoes The specific video we want to apply changes to
+     * @param orgName The original name of the specific video
+     */
     private fun editVideo(videos: MutableList<VideoData>, orgName: String) {
         // Get all values entered by the user
         val newName = binding.etNameEdit.text.toString()

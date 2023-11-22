@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.MimeTypes
@@ -21,6 +20,7 @@ class NewVideo : AppCompatActivity() {
     private lateinit var binding: ActivityNewVideoBinding
     private lateinit var sf: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
+    private val requestPickVideo = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,7 @@ class NewVideo : AppCompatActivity() {
             // Create an intent to open the file picker
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "video/*"
-            startActivityForResult(intent, REQUEST_PICK_VIDEO)
+            startActivityForResult(intent, requestPickVideo)
         }
 
         // Finish activity on back button click
@@ -100,7 +100,7 @@ class NewVideo : AppCompatActivity() {
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_PICK_VIDEO && resultCode == Activity.RESULT_OK) {
+        if (requestCode == requestPickVideo && resultCode == Activity.RESULT_OK) {
             val selectedVideoUri = data?.data
             if (selectedVideoUri != null) {
 
@@ -221,9 +221,5 @@ class NewVideo : AppCompatActivity() {
         binding.etUrl.text.clear()
         binding.etDescription.text.clear()
         binding.etSubtitleUrl.text.clear()
-    }
-
-    companion object {
-        private const val REQUEST_PICK_VIDEO = 1
     }
 }

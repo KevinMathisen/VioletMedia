@@ -70,7 +70,7 @@
     <TextView
         android:id="@+id/tvAbout1"
         android:layout_width="285dp"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:gravity="center"
         android:text="TextView"
